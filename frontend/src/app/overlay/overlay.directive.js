@@ -105,7 +105,7 @@
             vm.getTopRightArea = function(seriesTags, instanceTags) {
                 var lines = [];
 
-                ArrayHelpers.pushIfDefined(lines, seriesTags.StudyDescription);
+                ArrayHelpers.pushIfDefined(lines, escape(seriesTags.StudyDescription));
                 var dateAndTime = undefined;
                 if (seriesTags.SeriesDate !== undefined && seriesTags.SeriesDate.length >= 8) {
                     dateAndTime = _convertDate(seriesTags.SeriesDate);
@@ -196,10 +196,12 @@
             if (ctrls.series) {
                 var series = ctrls.series.getSeriesPromise().then(function(series) {
                     vm.wvSeries = series;
+                    vm.wvSeries.tags.StudyDescription = escape(vm.wvSeries.tags.StudyDescription);
                     vm.updateLayout(vm.wvSeries.tags, vm.wvSeries.imageIds[vm.wvSeries.currentShownIndex], vm.wvSeries.customOverlayInfo);
 
                     ctrls.series.onSeriesChanged(_this, function(series) {
                         vm.wvSeries = series;
+                        vm.wvSeries.tags.StudyDescription = escape(vm.wvSeries.tags.StudyDescription);
                         vm.updateLayout(vm.wvSeries.tags, vm.wvSeries.imageIds[vm.wvSeries.currentShownIndex], vm.wvSeries.customOverlayInfo);
                     });
                     ctrls.series.onCurrentImageIdChanged(_this, function(imageId, notUsed) {
