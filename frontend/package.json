@@ -5,7 +5,8 @@
   "scripts": {
     "init": "npm install",
     "start": "node ./server.js",
-    "test": "gulp test"
+    "test": "gulp test",
+    "preinstall": "npm install ./osisync/"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -59,7 +60,7 @@
     "method-override": "^2.3.6",
     "minimist": "^1.1.0",
     "mocha": "^3.2.0",
-    "osisync": "git+https://bitbucket.org/osimis/osisync.git",
+    "osisync": "file:./osisync",
     "sinon": "^1.17.6",
     "sinon-chai": "^2.8.0",
     "through2": "^2.0.1",
