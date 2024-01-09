@@ -21,8 +21,8 @@
 
 #include "CacheManager.h"
 
-#include "Core/Toolbox.h"
-#include "Core/SQLite/Transaction.h"
+#include <Toolbox.h>
+#include <SQLite/Transaction.h>
 
 #include <boost/lexical_cast.hpp>
 

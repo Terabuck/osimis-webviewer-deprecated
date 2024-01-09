@@ -20,7 +20,7 @@
 #include <gtest/gtest.h>
 
 #include <json/writer.h> // for Json::Value
-#include <Core/DicomFormat/DicomMap.h>
+#include <DicomFormat/DicomMap.h>
 #include <Image/ImageMetaData.h>
 
 static int argc_;

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 #
 # This maintenance script updates the content of the "Orthanc" folder
@@ -8,16 +8,18 @@
 import multiprocessing
 import os
 import stat
-import urllib2
+import urllib.request
 
 TARGET = os.path.dirname(__file__)
 ORTHANC_FRAMEWORK_VERSION = '1.7.1'
 PLUGIN_SDK_VERSION = '1.3.1'
-REPOSITORY = 'https://hg.orthanc-server.com/orthanc/raw-file'
+REPOSITORY = 'https://orthanc.uclouvain.be/hg/orthanc/raw-file'
 
 FILES = [
-    ('Resources/DownloadOrthancFramework.cmake', 'CMake'),
-    ('Resources/LinuxStandardBaseToolchain.cmake', 'CMake'),
+    ('OrthancFramework/Resources/CMake/DownloadOrthancFramework.cmake', 'CMake'),
+    ('OrthancFramework/Resources/Toolchains/LinuxStandardBaseToolchain.cmake', 'CMake'),
+    ('OrthancFramework/Resources/Toolchains/MinGW-W64-Toolchain32.cmake', 'CMake'),
+    ('OrthancFramework/Resources/Toolchains/MinGW-W64-Toolchain64.cmake', 'CMake'),
 ]
 
 SDK = [
@@ -29,7 +31,7 @@ def Download(x):
     branch = x[0]
     source = x[1]
     target = os.path.join(TARGET, x[2])
-    print target
+    print(target)
 
     try:
         os.makedirs(os.path.dirname(target))
@@ -38,9 +40,9 @@ def Download(x):
 
     url = '%s/%s/%s' % (REPOSITORY, branch, source)
 
-    with open(target, 'w') as f:
+    with open(target, 'wb') as f:
         try:
-            f.write(urllib2.urlopen(url).read())
+            f.write(urllib.request.urlopen(url).read())
         except:
             print('ERROR %s' % url)
             raise
@@ -49,7 +51,7 @@ def Download(x):
 commands = []
 
 for f in FILES:
-    commands.append([ 'Orthanc-%s' % ORTHANC_FRAMEWORK_VERSION,
+    commands.append([ 'default',
                       f[0],
                       os.path.join(f[1], os.path.basename(f[0])) ])
 

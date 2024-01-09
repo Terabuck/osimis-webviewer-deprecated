@@ -2,11 +2,13 @@
 
 #include <boost/thread.hpp>
 #include <boost/lexical_cast.hpp>
-#include "Core/IDynamicObject.h"
-#include "Core/SystemToolbox.h"
-#include "Core/FileStorage/FilesystemStorage.h"
-#include "Core/SQLite/Connection.h"
-#include "Plugins/Samples/GdcmDecoder/GdcmDecoderCache.h"
+
+#include <IDynamicObject.h>
+#include <SystemToolbox.h>
+#include <FileStorage/FilesystemStorage.h>
+#include <SQLite/Connection.h>
+#include <GdcmDecoderCache.h>
+
 #include "CacheManager.h"
 #include "CacheScheduler.h"
 #include "json/json.h"

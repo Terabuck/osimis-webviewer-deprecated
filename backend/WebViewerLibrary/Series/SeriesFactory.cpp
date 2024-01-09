@@ -3,7 +3,7 @@
 #include <memory>
 #include <json/json.h>
 
-#include <Core/OrthancException.h> // For _getTransferSyntax
+#include <OrthancException.h> // For _getTransferSyntax
 
 namespace {
 }

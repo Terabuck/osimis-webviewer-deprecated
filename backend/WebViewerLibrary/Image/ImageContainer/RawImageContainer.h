@@ -5,9 +5,9 @@
 //#include <boost/mpl/vector.hpp> // for mpl::vector
 //#include <boost/gil/extension/dynamic_image/dynamic_image_all.hpp> // for any_image_view
 
-#include <Plugins/Samples/GdcmDecoder/OrthancImageWrapper.h> // for OrthancImageWrapper
-#include <Core/Images/ImageAccessor.h> // for ImageAccessor
-#include <Core/Images/ImageBuffer.h> // for ImageBuffer
+#include <OrthancImageWrapper.h> // for OrthancImageWrapper
+#include <Images/ImageAccessor.h> // for ImageAccessor
+#include <Images/ImageBuffer.h> // for ImageBuffer
 
 #include "../../OrthancContextManager.h"
 #include "../../ViewerToolbox.h" // for OrthancPluginImage

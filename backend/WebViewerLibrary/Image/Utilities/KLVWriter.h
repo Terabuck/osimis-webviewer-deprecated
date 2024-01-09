@@ -7,8 +7,8 @@
 #include <string>
 #include <vector>
 
-#include <Core/Toolbox.h> // for DetectEndianness
-#include <Core/Enumerations.h> // for Endianness
+#include <Toolbox.h> // for DetectEndianness
+#include <Enumerations.h> // for Endianness
 
 // see https://en.wikipedia.org/wiki/KLV
 // key & length are written in big endian

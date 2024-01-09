@@ -8,9 +8,9 @@
 #include <boost/algorithm/string.hpp> // for boost::algorithm::split
 
 #include "../BenchmarkHelper.h"
-#include <Core/Toolbox.h> // for TokenizeString && StripSpaces
-#include <Core/Images/ImageProcessing.h> // for GetMinMaxValue
-#include <Core/OrthancException.h> // for throws
+#include <Toolbox.h> // for TokenizeString && StripSpaces
+#include <Images/ImageProcessing.h> // for GetMinMaxValue
+#include <OrthancException.h> // for throws
 #include "ViewerToolbox.h"
 
 namespace

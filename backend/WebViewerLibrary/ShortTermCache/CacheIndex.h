@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include "Core/IDynamicObject.h"
+#include <IDynamicObject.h>
 
 #include <string>
 

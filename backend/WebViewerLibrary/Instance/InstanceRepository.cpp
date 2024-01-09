@@ -3,9 +3,9 @@
 #include <memory>
 #include <string>
 #include <json/value.h>
-#include <Core/OrthancException.h>
-#include <Core/DicomFormat/DicomMap.h> // To retrieve transfer syntax
-#include <Core/Toolbox.h> // For _getTransferSyntax -> Orthanc::Toolbox::StripSpaces
+#include <OrthancException.h>
+#include <DicomFormat/DicomMap.h> // To retrieve transfer syntax
+#include <Toolbox.h> // For _getTransferSyntax -> Orthanc::Toolbox::StripSpaces
 
 #include "../OrthancContextManager.h"
 #include "../BenchmarkHelper.h"

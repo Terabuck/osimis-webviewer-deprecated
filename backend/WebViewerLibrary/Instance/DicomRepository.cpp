@@ -5,7 +5,7 @@
 #include "../BenchmarkHelper.h" // for BENCH(*)
 #include "../OrthancContextManager.h" // for context_ global
 #include "../ViewerToolbox.h" // for OrthancPlugins::get*FromOrthanc && OrthancPluginImage
-#include <Core/OrthancException.h> // for throws
+#include <OrthancException.h> // for throws
 
 namespace
 {

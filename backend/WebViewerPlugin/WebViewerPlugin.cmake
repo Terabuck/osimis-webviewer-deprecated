@@ -72,7 +72,7 @@ MESSAGE( STATUS "JS_FRONTEND_VERSION:            " ${JS_FRONTEND_VERSION} )
 
 # Download the frontend lib
 if(NOT ${JS_FRONTEND_VERSION} STREQUAL "LOCAL") 
-  # ORTHANC_ROOT & DownloadPackage.cmake are included within BuildDependencies.cmake
+  # ORTHANC_FRAMEWORK_ROOT & DownloadPackage.cmake are included within BuildDependencies.cmake
   DownloadPackage(no-check "http://orthanc.osimis.io/public/osimisWebViewer/${JS_FRONTEND_VERSION}.zip" ${JS_CLIENT_PATH} TRUE)
 endif()
 

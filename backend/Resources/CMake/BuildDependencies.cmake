@@ -10,9 +10,9 @@ include(FindPythonInterp)
 
 set(ENABLE_PLUGINS_VERSION_SCRIPT OFF)
 
-include(${ORTHANC_ROOT}/Resources/CMake/Compiler.cmake)
+include(${ORTHANC_FRAMEWORK_ROOT}/../Resources/CMake/Compiler.cmake)
 include(${RESOURCES_DIR}/CMake/GdcmConfiguration.cmake)
-include(${ORTHANC_ROOT}/Resources/CMake/GoogleTestConfiguration.cmake)
+include(${ORTHANC_FRAMEWORK_ROOT}/../Resources/CMake/GoogleTestConfiguration.cmake)
 
 ## Check that the Orthanc SDK headers are available or download them
 if (STATIC_BUILD OR NOT USE_SYSTEM_ORTHANC_SDK)
@@ -29,9 +29,9 @@ add_library(WebViewerDependencies
   STATIC
 
   # The following files depend on GDCM
-  ${ORTHANC_ROOT}/Plugins/Samples/GdcmDecoder/GdcmImageDecoder.cpp
-  ${ORTHANC_ROOT}/Plugins/Samples/GdcmDecoder/GdcmDecoderCache.cpp
-  ${ORTHANC_ROOT}/Plugins/Samples/GdcmDecoder/OrthancImageWrapper.cpp
+  ${ORTHANC_FRAMEWORK_ROOT}/../Plugins/Samples/GdcmDecoder/GdcmImageDecoder.cpp
+  ${ORTHANC_FRAMEWORK_ROOT}/../Plugins/Samples/GdcmDecoder/GdcmDecoderCache.cpp
+  ${ORTHANC_FRAMEWORK_ROOT}/../Plugins/Samples/GdcmDecoder/OrthancImageWrapper.cpp
 )
 
 target_compile_definitions(WebViewerDependencies PUBLIC -DCMAKE_OSX_DEPLOYMENT_TARGET=${CMAKE_OSX_DEPLOYMENT_TARGET} -DCMAKE_OSX_ARCHITECTURES=${CMAKE_OSX_ARCHITECTURES})
@@ -57,4 +57,10 @@ if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux" OR
   set_target_properties(WebViewerDependencies PROPERTIES
       COMPILE_FLAGS ${Flags})
   target_link_libraries(WebViewerDependencies -ldl)
+endif()
+
+if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows" AND
+    CMAKE_COMPILER_IS_GNUCXX)
+  # For MinGW
+  target_link_libraries(WebViewerDependencies wsock32)
 endif()

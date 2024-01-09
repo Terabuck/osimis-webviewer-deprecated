@@ -9,10 +9,10 @@
 #include <boost/filesystem.hpp>
 
 #include <orthanc/OrthancCPlugin.h>
-#include <Core/OrthancException.h>
-#include <Core/Toolbox.h>
-#include <Core/DicomFormat/DicomMap.h>
-#include <Plugins/Samples/GdcmDecoder/GdcmDecoderCache.h>
+#include <OrthancException.h>
+#include <Toolbox.h>
+#include <DicomFormat/DicomMap.h>
+#include <GdcmDecoderCache.h>
 
 #include "ViewerToolbox.h"
 #include "OrthancContextManager.h"

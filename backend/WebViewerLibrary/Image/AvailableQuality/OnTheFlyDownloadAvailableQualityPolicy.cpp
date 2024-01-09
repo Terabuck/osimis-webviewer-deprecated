@@ -3,8 +3,8 @@
 #include <boost/regex.hpp>
 #include <boost/lexical_cast.hpp>
 #include <orthanc/OrthancCPlugin.h>
-#include <Core/OrthancException.h>
-#include <Core/Toolbox.h>
+#include <OrthancException.h>
+#include <Toolbox.h>
 #include "../../BenchmarkHelper.h"
 #include "ViewerToolbox.h"
 

@@ -46,14 +46,18 @@ include(${CMAKE_SOURCE_DIR}/Resources/CMake/DownloadOrthancFramework.cmake)
 
 set(ORTHANC_FRAMEWORK_PLUGIN ON)
 
-include(${ORTHANC_ROOT}/Resources/CMake/OrthancFrameworkParameters.cmake)
+include(${ORTHANC_FRAMEWORK_ROOT}/../Resources/CMake/OrthancFrameworkParameters.cmake)
 
 set(ENABLE_LOCALE ON)
 set(ENABLE_GOOGLE_TEST ON)
 set(ENABLE_SQLITE ON)
 
-include(${ORTHANC_ROOT}/Resources/CMake/OrthancFrameworkConfiguration.cmake)
-include_directories(${ORTHANC_ROOT})
+include(${ORTHANC_FRAMEWORK_ROOT}/../Resources/CMake/OrthancFrameworkConfiguration.cmake)
+include_directories(
+  ${ORTHANC_FRAMEWORK_ROOT}/
+  ${ORTHANC_FRAMEWORK_ROOT}/../Plugins/Samples/GdcmDecoder/
+  ${ORTHANC_FRAMEWORK_ROOT}/../Plugins/Samples/Common/  # For OrthancPluginCppWrapper.h
+  )
 
 add_definitions(
   -DORTHANC_ENABLE_LOGGING_PLUGIN=1
@@ -66,7 +70,7 @@ add_library(WebViewerLibrary
   STATIC
 
   ${ORTHANC_CORE_SOURCES}
-  ${ORTHANC_ROOT}/Plugins/Samples/Common/OrthancPluginCppWrapper.cpp
+  ${ORTHANC_FRAMEWORK_ROOT}/../Plugins/Samples/Common/OrthancPluginCppWrapper.cpp
 
   # The following files depend on GDCM
   ${VIEWER_LIBRARY_DIR}/SeriesInformationAdapter.cpp

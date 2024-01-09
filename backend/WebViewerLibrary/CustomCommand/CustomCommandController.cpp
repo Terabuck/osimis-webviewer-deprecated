@@ -4,7 +4,7 @@
 #include <string>
 #include <boost/regex.hpp>
 #include <boost/lexical_cast.hpp> // to retrieve exception error code for log
-#include <Core/OrthancException.h>
+#include <OrthancException.h>
 
 #include <json/json.h>
 #include <json/reader.h>

@@ -20,9 +20,9 @@
 
 #include "ViewerToolbox.h"
 
-#include <Core/OrthancException.h>
-#include <Core/Toolbox.h>
-#include <Core/DicomFormat/DicomArray.h>
+#include <OrthancException.h>
+#include <Toolbox.h>
+#include <DicomFormat/DicomArray.h>
 
 #include <string>
 #include <json/reader.h>

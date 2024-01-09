@@ -21,8 +21,8 @@
 
 #pragma once
 
-#include "Core/SQLite/Connection.h"
-#include "Core/FileStorage/FilesystemStorage.h"
+#include <SQLite/Connection.h>
+#include <FileStorage/FilesystemStorage.h>
 
 #include <orthanc/OrthancCPlugin.h>
 

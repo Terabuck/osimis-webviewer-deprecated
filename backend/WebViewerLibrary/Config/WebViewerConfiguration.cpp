@@ -2,10 +2,10 @@
 
 #include <orthanc/OrthancCPlugin.h>
 #include <json/json.h>
-#include <Core/OrthancException.h>
+#include <OrthancException.h>
 #include <boost/thread.hpp>
 #include <algorithm>
-#include <Plugins/Samples/Common/OrthancPluginCppWrapper.h>
+#include <OrthancPluginCppWrapper.h>
 
 #include "ViewerToolbox.h"
 

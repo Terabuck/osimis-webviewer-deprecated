@@ -13,7 +13,7 @@
 #include <json/writer.h>
 #include <json/value.h>
 
-#include <Core/OrthancException.h> // for OrthancException(UnknownResource) catch
+#include <OrthancException.h> // for OrthancException(UnknownResource) catch
 
 #include "../BenchmarkHelper.h" // for BENCH(*)
 #include "ImageProcessingPolicy/LowQualityPolicy.h"

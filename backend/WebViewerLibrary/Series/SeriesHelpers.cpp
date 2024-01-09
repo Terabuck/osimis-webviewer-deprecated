@@ -1,7 +1,7 @@
 #include "SeriesHelpers.h"
 
-#include <Core/OrthancException.h>
-#include <Core/Toolbox.h>
+#include <OrthancException.h>
+#include <Toolbox.h>
 #include "ViewerToolbox.h"
 
 // this is basically a copy of the SliceOrdering code from Orthanc except that the order is inverted (when

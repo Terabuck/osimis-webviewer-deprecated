@@ -23,7 +23,7 @@
 
 #include "CacheIndex.h"
 
-#include "Core/OrthancException.h"
+#include <OrthancException.h>
 #include <stdio.h>
 #include "ShortTermCache/CacheContext.h"
 

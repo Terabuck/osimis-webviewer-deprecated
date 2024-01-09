@@ -6,8 +6,8 @@
 #include <boost/regex.hpp>
 #include <boost/lexical_cast.hpp> // to retrieve exception error code for log
 #include <boost/range/algorithm.hpp>
-#include <Core/OrthancException.h>
-#include <Core/Toolbox.h>
+#include <OrthancException.h>
+#include <Toolbox.h>
 
 #include "../Annotation/AnnotationRepository.h"
 #include "../BenchmarkHelper.h" // for BENCH(*)

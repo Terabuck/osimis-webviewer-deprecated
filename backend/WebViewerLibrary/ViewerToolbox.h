@@ -24,8 +24,8 @@
 #include <json/value.h>
 #include <orthanc/OrthancCPlugin.h>
 
-#include <Core/Images/ImageAccessor.h>
-#include <Core/DicomFormat/DicomMap.h>
+#include <Images/ImageAccessor.h>
+#include <DicomFormat/DicomMap.h>
 
 namespace OrthancPlugins
 {

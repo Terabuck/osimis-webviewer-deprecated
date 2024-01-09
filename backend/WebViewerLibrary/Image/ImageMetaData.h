@@ -4,7 +4,7 @@
 #include <stdint.h> // for uint32_t
 #include <json/writer.h> // for Json::Value
 
-#include <Core/DicomFormat/DicomMap.h>
+#include <DicomFormat/DicomMap.h>
 #include "ImageContainer/RawImageContainer.h"
 #include "ImageContainer/IImageContainer.h"
 

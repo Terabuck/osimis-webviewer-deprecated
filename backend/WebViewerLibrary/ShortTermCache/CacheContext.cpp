@@ -1,6 +1,6 @@
 #include "CacheContext.h"
 #include "Series/SeriesRepository.h"
-#include <Core/OrthancException.h>
+#include <OrthancException.h>
 #include <boost/foreach.hpp>
 
 CacheContext::CacheContext(const std::string& path,

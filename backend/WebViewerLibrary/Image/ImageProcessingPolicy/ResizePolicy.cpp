@@ -1,6 +1,6 @@
 #include "ResizePolicy.h"
 
-#include <Core/OrthancException.h>
+#include <OrthancException.h>
 
 #include "../../Logging.h"
 #include "../../BenchmarkHelper.h"

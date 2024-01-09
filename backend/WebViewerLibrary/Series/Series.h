@@ -23,7 +23,9 @@
 #include <string>
 #include <set>
 #include <json/value.h>
-#include <Core/DicomFormat/DicomMap.h>
+
+#include <DicomFormat/DicomMap.h>
+
 #include "../Image/AvailableQuality/ImageQuality.h"
 
 class Series {

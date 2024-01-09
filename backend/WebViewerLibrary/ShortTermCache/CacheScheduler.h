@@ -24,7 +24,7 @@
 #include "CacheManager.h"
 #include "ICacheFactory.h"
 #include "IPrefetchPolicy.h"
-#include "Core/MultiThreading/SharedMessageQueue.h"
+#include <MultiThreading/SharedMessageQueue.h>
 
 #include <boost/thread.hpp>
 #include <stdio.h>

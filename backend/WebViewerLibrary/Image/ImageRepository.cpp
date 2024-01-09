@@ -4,9 +4,9 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/thread/lock_guard.hpp> 
 
-#include <Core/OrthancException.h> // for throws
-#include <Core/DicomFormat/DicomMap.h>
-#include <Core/Enumerations.h>
+#include <OrthancException.h> // for throws
+#include <DicomFormat/DicomMap.h>
+#include <Enumerations.h>
 #include "../ViewerToolbox.h" // for OrthancPlugins::get*FromOrthanc && OrthancPluginImage
 #include "../BenchmarkHelper.h" // for BENCH(*)
 #include "../OrthancContextManager.h" // for context_ global

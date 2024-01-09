@@ -2,7 +2,7 @@
 
 #include <assert.h>
 #include <string>
-#include <Core/OrthancException.h>
+#include <OrthancException.h>
 #include <boost/lexical_cast.hpp> // to retrieve exception error code for log
 
 #include "../OrthancContextManager.h"
