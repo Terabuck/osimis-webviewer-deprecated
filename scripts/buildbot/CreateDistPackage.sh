@@ -43,8 +43,8 @@ fi
 
 mkdir -p ${ROOT_DIR}/frontend-build/
 
-#( cd ${ROOT_DIR}/scripts/buildbot/CreateDistPackage && \
-#      docker build --no-cache -t ${IMAGE} . )
+( cd ${ROOT_DIR}/scripts/buildbot/CreateDistPackage && \
+      docker build --no-cache -t ${IMAGE} . )
 
 docker run -t ${DOCKER_FLAGS} --rm \
        --user $(id -u):$(id -g) \
