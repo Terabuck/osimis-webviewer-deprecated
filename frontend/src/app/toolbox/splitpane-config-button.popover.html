@@ -77,7 +77,24 @@
                         ng-value="{x: 2, y: 2}"
                     />
                 </label>
-              </div>
-          </form>
+
+                <!--
+                4x1 icon.
+                -->
+                <label
+                    class="wvToolbar__splitpaneConfigButton fa fa-vertbars"
+                    ng-class="{wvLargeButton: vm.buttonSize === 'large'}"
+                >
+                <input
+                    class="wvToolbar__splitpaneConfigButtonInput"
+                    type="radio"
+
+                    ng-disabled="vm.readonly"
+                    ng-model="vm.splitpaneLayout"
+                    ng-value="{x: 4, y: 1}"
+                />
+                </label>
+            </div>
+        </form>
     </div>
 </div>

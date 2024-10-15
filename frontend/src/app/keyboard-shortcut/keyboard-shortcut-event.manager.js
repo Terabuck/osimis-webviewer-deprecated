@@ -207,6 +207,10 @@
                 wvViewerController.setLayout(2, 2);
             };
 
+            handlers.setLayout4x1 = function() {
+                wvViewerController.setLayout(4, 1);
+            };
+            
             handlers.selectNextPane = function() {
                 wvPaneManager.selectNextPane();
             };

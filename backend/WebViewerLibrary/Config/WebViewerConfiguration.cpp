@@ -103,6 +103,7 @@ void WebViewerConfiguration::_parseFile(const Json::Value& wvConfig)
   keyboardShortcuts["f2"] = "setLayout1x2";
   keyboardShortcuts["f3"] = "setLayout2x1";
   keyboardShortcuts["f4"] = "setLayout2x2";
+  keyboardShortcuts["f6"] = "setLayout4x1";
   keyboardShortcuts["space"] = "playPause";
   keyboardShortcuts["tab"] = "selectNextPane";
   keyboardShortcuts["shift + tab"] = "selectPreviousPane";
@@ -419,6 +420,7 @@ void WebViewerConfiguration::_parseFile(const Json::Value& wvConfig)
     keyboardShortcutsAllowedToolNames.insert("setLayout1x2");
     keyboardShortcutsAllowedToolNames.insert("setLayout2x1");
     keyboardShortcutsAllowedToolNames.insert("setLayout2x2");
+    keyboardShortcutsAllowedToolNames.insert("setLayout4x1");
     keyboardShortcutsAllowedToolNames.insert("play");
     keyboardShortcutsAllowedToolNames.insert("pause");
     keyboardShortcutsAllowedToolNames.insert("playPause");

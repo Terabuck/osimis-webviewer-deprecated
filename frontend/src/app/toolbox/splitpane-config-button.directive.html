@@ -92,6 +92,26 @@
                 />
             </label>
         </div>
+        <!--
+        4x1 icon.
+        -->
+        <div ng-class="{'inline-object': vm.popoverPlacement === 'bottom'}">
+            <label
+                class="wvButton"
+                ng-class="{wvLargeButton: vm.buttonSize === 'large'}"
+                ng-click="vm.isOpen = false"
+            >
+                <input
+                    class="wvToolbar__splitpaneConfigButtonInput"
+                    type="radio"
+
+                        ng-disabled="vm.readonly"
+                        ng-model="vm.splitpaneLayout"
+                                ng-value="{x: 4, y: 1}"
+                            />
+                        <i class="fa fa-vertbars"></i>
+            </label>
+        </div> 
     </div>
     <div class="overlay__transparent" ng-if="vm.isOpen" ng-click="vm.isOpen = false"></div>
 </div>
