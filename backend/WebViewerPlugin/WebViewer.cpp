@@ -50,6 +50,9 @@ void WebViewer::_serveFrontEnd()
   LanguageController::addLanguageFile("nl", "/osimis-viewer/app/languages/nl.json");
   LanguageController::addLanguageFile("es", "/osimis-viewer/app/languages/es.json");
   LanguageController::addLanguageFile("pt", "/osimis-viewer/app/languages/pt.json");
+  LanguageController::addLanguageFile("it", "/osimis-viewer/app/languages/it.json");
+  LanguageController::addLanguageFile("jp", "/osimis-viewer/app/languages/jp.json");
+  LanguageController::addLanguageFile("gr", "/osimis-viewer/app/languages/gr.json");
   LanguageController::addLanguageFile("zh", "/osimis-viewer/app/languages/zh.json");
 }
 

@@ -189,13 +189,14 @@
 			"f2": "setLayout1x2",
 			"f3": "setLayout2x1",
 			"f4": "setLayout2x2",
+			"f6": "setLayout4x1",
 			"space": "playPause",
 			"tab": "selectNextPane",
 			"shift + tab": "selectPreviousPane",
 			"enter": "loadSeriesInPane"
 		},
 		// Select the study island display mode
-		// Allowed values: grid, list, oneCol
+		// Allowed values: grid, list
 		"DefaultStudyIslandsDisplayMode": "grid",
 
 		// Select the language

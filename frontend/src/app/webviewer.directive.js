@@ -46,7 +46,7 @@
  * The displayed notice content, for instance instructions over mobile
  * ergonomy, or related series / studies.
  *
- * @param {boolean} [wvSeriesItemSelectionEnabled=false]
+ * @param {boolean} [wvSeriesItemSelectionEnabled=true]
  * Let the end-user select series in the serieslist using a single click. This
  * selection has no impact on the standalone viewer. However, host applications
  * can retrieve the selection to do customized actions using the
@@ -123,83 +123,102 @@
  * The `wvWebviewer` directive display a whole web viewer at full scale (100%
  * width, 100% height).
  **/
- (function () {
-    'use strict';
+(function () {
+    "use strict";
 
-    angular
-        .module('webviewer')
-        .directive('wvWebviewer', wvWebviewer);
+    angular.module("webviewer").directive("wvWebviewer", wvWebviewer);
 
     /* @ngInject */
-    function wvWebviewer($rootScope, $timeout, $translate, wvStudyManager, wvAnnotationManager, wvImageManager, wvPaneManager, wvWindowingViewportTool, wvSynchronizer, wvReferenceLines, wvViewerController, wvConfig) {
+    function wvWebviewer(
+        $rootScope,
+        $timeout,
+        $translate,
+        wvStudyManager,
+        wvAnnotationManager,
+        wvImageManager,
+        wvPaneManager,
+        wvWindowingViewportTool,
+        wvSynchronizer,
+        wvReferenceLines,
+        wvViewerController,
+        wvConfig
+    ) {
         var directive = {
             bindToController: true,
             controller: Controller,
-            controllerAs: 'vm',
+            controllerAs: "vm",
             link: link,
-            restrict: 'E',
+            restrict: "E",
             scope: {
-                readonly: '=?wvReadonly',
-                pickableStudyIdLabels: '=?wvPickableStudyIdLabels',  // {studyOrthancUuid: "text to display"}
-                pickableStudyIds: '=wvPickableStudyIds',
-                selectedStudyIds: '=?wvSelectedStudyIds',
-                seriesId: '=?wvSeriesId',
-                tools: '=?wvTools',
-                toolbarEnabled: '=?wvToolbarEnabled',
-                toolbarPosition: '=?wvToolbarPosition',
-                toolbarLayoutMode: '=?wvToolbarLayoutMode',
-                toolbarDefaultTool: '=?wvToolbarDefaultTool',
-                serieslistEnabled: '=?wvSerieslistEnabled',
-                studyinformationEnabled: '=?wvStudyinformationEnabled',
-                leftHandlesEnabled: '=?wvLefthandlesEnabled',
-                noticeEnabled: '=?wvNoticeEnabled',
-                noticeText: '=?wvNoticeText',
-                windowingPresets: '=wvWindowingPresets',
-                annotationStorageEnabled: '=?wvAnnotationstorageEnabled',
-                studyDownloadEnabled: '=?wvStudyDownloadEnabled',
-                videoDisplayEnabled: '=?wvVideoDisplayEnabled',
-                keyImageCaptureEnabled: '=?wvKeyImageCaptureEnabled',
-                showInfoPopupButtonEnabled: '=?wvShowInfoPopupButtonEnabled',
-                downloadAsJpegEnabled: '=?wvDownloadAsJpegEnabled',
-                combinedToolEnabled: '=?wvCombinedToolEnabled',
-                showNoReportIconInSeriesList: '=?wvShowNoReportIconInSeriesList',
-                reduceTimelineHeightOnSingleFrameSeries: '=?wvReduceTimelineHeightOnSingleFrameSeries',
-                buttonsSize: '=?wvButtonsSize',  // small | large
-                studyIslandsDisplayMode: '=?wvStudyIslandsDisplayMode',
+                readonly: "=?wvReadonly",
+                pickableStudyIdLabels: "=?wvPickableStudyIdLabels", // {studyOrthancUuid: "text to display"}
+                pickableStudyIds: "=wvPickableStudyIds",
+                selectedStudyIds: "=?wvSelectedStudyIds",
+                seriesId: "=?wvSeriesId",
+                tools: "=?wvTools",
+                toolbarEnabled: "=?wvToolbarEnabled",
+                toolbarPosition: "=?wvToolbarPosition",
+                toolbarLayoutMode: "=?wvToolbarLayoutMode",
+                toolbarDefaultTool: "=?wvToolbarDefaultTool",
+                serieslistEnabled: "=?wvSerieslistEnabled",
+                studyinformationEnabled: "=?wvStudyinformationEnabled",
+                leftHandlesEnabled: "=?wvLefthandlesEnabled",
+                noticeEnabled: "=?wvNoticeEnabled",
+                noticeText: "=?wvNoticeText",
+                windowingPresets: "=wvWindowingPresets",
+                annotationStorageEnabled: "=?wvAnnotationstorageEnabled",
+                studyDownloadEnabled: "=?wvStudyDownloadEnabled",
+                videoDisplayEnabled: "=?wvVideoDisplayEnabled",
+                keyImageCaptureEnabled: "=?wvKeyImageCaptureEnabled",
+                showInfoPopupButtonEnabled: "=?wvShowInfoPopupButtonEnabled",
+                downloadAsJpegEnabled: "=?wvDownloadAsJpegEnabled",
+                combinedToolEnabled: "=?wvCombinedToolEnabled",
+                showNoReportIconInSeriesList:
+                    "=?wvShowNoReportIconInSeriesList",
+                reduceTimelineHeightOnSingleFrameSeries:
+                    "=?wvReduceTimelineHeightOnSingleFrameSeries",
+                buttonsSize: "=?wvButtonsSize", // small | large
+                studyIslandsDisplayMode: "=?wvStudyIslandsDisplayMode",
 
-                displayDisclaimer: '=?wvDisplayDisclaimer',
-                toolboxButtonsOrdering: '=?wvToolboxButtonsOrdering',
+                displayDisclaimer: "=?wvDisplayDisclaimer",
+                toolboxButtonsOrdering: "=?wvToolboxButtonsOrdering",
 
                 // Selection-related
-                seriesItemSelectionEnabled: '=?wvSeriesItemSelectionEnabled',
-                selectedSeriesItems: '=?wvSelectedSeriesItems', // readonly
+                seriesItemSelectionEnabled: "=?wvSeriesItemSelectionEnabled",
+                selectedSeriesItems: "=?wvSelectedSeriesItems", // readonly
 
-                isAsideClosed: '=?wvIsAsideClosed'
+                isAsideClosed: "=?wvIsAsideClosed",
+
             },
             transclude: {
-                wvLayoutTopLeft: '?wvLayoutTopLeft',
-                wvLayoutTopRight: '?wvLayoutTopRight',
-                wvLayoutRight: '?wvLayoutRight',
-                wvLayoutLeftBottom: '?wvLayoutLeftBottom',
-                wvLayoutLeftTop: '?wvLayoutLeftTop'
+                wvLayoutTopLeft: "?wvLayoutTopLeft",
+                wvLayoutTopRight: "?wvLayoutTopRight",
+                wvLayoutRight: "?wvLayoutRight",
+                wvLayoutLeftBottom: "?wvLayoutLeftBottom",
+                wvLayoutLeftTop: "?wvLayoutLeftTop",
             },
-            templateUrl: 'app/webviewer.directive.html'
+            templateUrl: "app/webviewer.directive.html",
         };
         return directive;
 
         function link(scope, element, attrs, ctrls, transcludeFn) {
             var vm = scope.vm;
 
-            { // check browser compatibility
+            {
+                // check browser compatibility
                 var browserName = wvConfig.browser.browser.name;
                 var browserMajorVersion = wvConfig.browser.browser.major;
                 var osName = wvConfig.browser.os.name;
 
                 vm.openIncompatibleBrowserModal = false;
-                console.log("Checking browser compatibility:", wvConfig.browser);
-                var minimalChromeVersion =  45;
+                console.log(
+                    "Checking browser compatibility:",
+                    wvConfig.browser
+                );
+                var minimalChromeVersion = 45;
                 var minimalSafariVersion = 9;
                 var minimalFirefoxVersion = 48;
+                var minimalTizenVersion = 3;
                 var minimalEdgeVersion = 14;
                 var minimalIEVersion = 11;
 
@@ -207,28 +226,46 @@
                     minimalChromeVersion = 48;
                     minimalFirefoxVersion = 28;
                 }
-                if (osName === "iOS" && wvConfig.browser.device.model === "iPhone") { // not supported at all on iPhone right now (too many bugs)
-                    minimalChromeVersion = 999;
-                    minimalFirefoxVersion = 999;
-                    minimalSafariVersion = 999;
+                if (
+                    osName === "iOS" &&
+                    wvConfig.browser.device.model === "iPhone"
+                ) {
+                    // not supported at all on iPhone right now (too many bugs)
+                    minimalChromeVersion = 45;
+                    minimalFirefoxVersion = 48;
+                    minimalSafariVersion = 9;
                 }
 
-                if ((browserName === "Chrome" && browserMajorVersion >= minimalChromeVersion)
-                    || (browserName === "Safari" && browserMajorVersion >= minimalSafariVersion)
-                    || (browserName === "Firefox" && browserMajorVersion >= minimalFirefoxVersion)
-                    || (browserName === "Edge" && browserMajorVersion >= minimalEdgeVersion)
-                    || (browserName === "IE" && browserMajorVersion >= minimalIEVersion)){
+                if (
+                    (browserName === "Chrome" &&
+                        browserMajorVersion >= minimalChromeVersion) ||
+                    (browserName === "Mobile Safari" &&
+                        browserMajorVersion >= minimalSafariVersion) ||
+                    (browserName === "Safari" &&
+                        browserMajorVersion >= minimalSafariVersion) ||
+                    (browserName === "Firefox" &&
+                        browserMajorVersion >= minimalFirefoxVersion) ||
+                    (browserName === "TizenBrowser" &&
+                        browserMajorVersion >= minimalTizenVersion) ||
+                    (browserName === "Edge" &&
+                        browserMajorVersion >= minimalEdgeVersion) ||
+                    (browserName === "IE" &&
+                        browserMajorVersion >= minimalIEVersion)
+                ) {
                     console.log(browserName + " Supported");
-                }
-                else{
+                } else {
                     vm.openIncompatibleBrowserModal = true;
-                    vm.incompatibleBrowserErrorMessage = browserName + " version " + browserMajorVersion + " is not supported.  You might expect inconsistent behaviours and shall not use the viewer to produce a diagnostic.";
+                    vm.incompatibleBrowserErrorMessage =
+                        browserName +
+                        " version " +
+                        browserMajorVersion +
+                        " is not supported.  You might expect inconsistent behaviours and shall not use the viewer to produce a diagnostic.";
                     console.log(vm.incompatibleBrowserErrorMessage);
                 }
 
-                vm.onCloseWarning = function(){
+                vm.onCloseWarning = function () {
                     vm.openIncompatibleBrowserModal = false;
-                }
+                };
             }
 
             vm.paneManager = wvPaneManager;
@@ -237,96 +274,145 @@
             vm.wvWindowingViewportTool = wvWindowingViewportTool;
 
             // Configure attributes default values
-            vm.toolbarEnabled = typeof vm.toolbarEnabled !== 'undefined' ? vm.toolbarEnabled : true;
-            vm.toolbarPosition = typeof vm.toolbarPosition !== 'undefined' ? vm.toolbarPosition : 'top';
-            vm.buttonsSize = typeof vm.buttonsSize !== 'undefined' ? vm.buttonsSize : 'small';
-            vm.customCommandIconLabel = typeof vm.customCommandIconLabel !== 'undefined' ? vm.customCommandIconLabel : 'custom command';
-            vm.customCommandIconClass = typeof vm.customCommandIconClass !== 'undefined' ? vm.customCommandIconClass : 'fas fa-exclamation';
-            vm.serieslistEnabled = typeof vm.serieslistEnabled !== 'undefined' ? vm.serieslistEnabled : true;
-            vm.studyinformationEnabled = typeof vm.studyinformationEnabled !== 'undefined' ? vm.studyinformationEnabled : true;
-            vm.leftHandlesEnabled = typeof vm.leftHandlesEnabled !== 'undefined' ? vm.leftHandlesEnabled : true;
-            vm.noticeEnabled = typeof vm.noticeEnabled !== 'undefined' ? vm.noticeEnabled : false;
-            vm.noticeText = typeof vm.noticeText !== 'undefined' ? vm.noticeText : undefined;
+            vm.toolbarEnabled =
+                typeof vm.toolbarEnabled !== "undefined"
+                    ? vm.toolbarEnabled
+                    : true;
+            vm.toolbarPosition =
+                typeof vm.toolbarPosition !== "undefined"
+                    ? vm.toolbarPosition
+                    : "top";
+            vm.buttonsSize =
+                typeof vm.buttonsSize !== "undefined"
+                    ? vm.buttonsSize
+                    : "small";
+            vm.customCommandIconLabel =
+                typeof vm.customCommandIconLabel !== "undefined"
+                    ? vm.customCommandIconLabel
+                    : "custom command";
+            vm.customCommandIconClass =
+                typeof vm.customCommandIconClass !== "undefined"
+                    ? vm.customCommandIconClass
+                    : "fa fa-exclamation";
+            vm.serieslistEnabled =
+                typeof vm.serieslistEnabled !== "undefined"
+                    ? vm.serieslistEnabled
+                    : true;
+            vm.studyinformationEnabled =
+                typeof vm.studyinformationEnabled !== "undefined"
+                    ? vm.studyinformationEnabled
+                    : true;
+            vm.leftHandlesEnabled =
+                typeof vm.leftHandlesEnabled !== "undefined"
+                    ? vm.leftHandlesEnabled
+                    : true;
+            vm.noticeEnabled =
+                typeof vm.noticeEnabled !== "undefined"
+                    ? vm.noticeEnabled
+                    : false;
+            vm.noticeText =
+                typeof vm.noticeText !== "undefined"
+                    ? vm.noticeText
+                    : undefined;
             vm.infoPopupIsStartup = true;
             vm.infoPopupEnabled = true;
-            vm.readonly = typeof vm.readonly !== 'undefined' ? vm.readonly : false;
+            vm.readonly =
+                typeof vm.readonly !== "undefined" ? vm.readonly : false;
             vm.wvViewerController = wvViewerController;
-            vm.tools = typeof vm.tools !== 'undefined' ? vm.tools : {
-                windowing: false,
-                zoom: false,
-                pan: false,
-                invert: false,
-                magnify: {
-                    magnificationLevel: 5,
-                    magnifyingGlassSize: 300
-                },
-                lengthMeasure: false,
-                angleMeasure: false,
-                simpleAngleMeasure: false,
-                pixelProbe: false,
-                ellipticalRoi: false,
-                rectangleRoi: false,
-                layout: {
-                    x: vm.wvViewerController.getLayout().x,
-                    y: vm.wvViewerController.getLayout().y
-                },
-                play: false,
-                overlay: true,
-                vflip: false,
-                hflip: false,
-                rotateLeft: false,
-                rotateRight: false,
-                arrowAnnotate: false,
-                nextSeries: false,
-                previousSeries: false
-            };
+            vm.tools =
+                typeof vm.tools !== "undefined"
+                    ? vm.tools
+                    : {
+                          windowing: false,
+                          zoom: false,
+                          pan: false,
+                          invert: false,
+                          magnify: {
+                              magnificationLevel: 5,
+                              magnifyingGlassSize: 300,
+                          },
+                          lengthMeasure: false,
+                          angleMeasure: false,
+                          simpleAngleMeasure: false,
+                          pixelProbe: false,
+                          ellipticalRoi: false,
+                          rectangleRoi: false,
+                          layout: {
+                              x: vm.wvViewerController.getLayout().x,
+                              y: vm.wvViewerController.getLayout().y,
+                          },
+                          play: false,
+                          overlay: true,
+                          vflip: false,
+                          hflip: false,
+                          rotateLeft: false,
+                          rotateRight: false,
+                          arrowAnnotate: false,
+                          nextSeries: false,
+                          previousSeries: false,
+                      };
 
-            if (vm.keyImageCaptureEnabled) { // activate
+            if (vm.keyImageCaptureEnabled) {
+                // activate
                 vm.tools.keyImageCapture = false;
             }
-            if (vm.showInfoPopupButtonEnabled) { // activate
+            if (vm.showInfoPopupButtonEnabled) {
+                // activate
                 vm.tools.showInfoPopup = false;
             }
-            if (vm.downloadAsJpegEnabled) { // activate
+            if (vm.downloadAsJpegEnabled) {
+                // activate
                 vm.tools.downloadAsJpeg = false;
             }
-            if (vm.combinedToolEnabled) { // activate}
+            if (vm.combinedToolEnabled) {
+                // activate}
                 vm.tools.combinedTool = false;
             }
-            if (__webViewerConfig.printEnabled) { // activate}
+            if (__webViewerConfig.printEnabled) {
+                // activate}
                 if (wvConfig.browser.browser.name == "IE") {
-                    console.log("Internet Explorer does not support printing -> this feature will be disabled");
+                    console.log(
+                        "Internet Explorer does not support printing -> this feature will be disabled"
+                    );
                 } else {
                     vm.tools.print = false;
                 }
             }
-            if (__webViewerConfig.toggleOverlayTextButtonEnabled) { // activate}
+            if (__webViewerConfig.toggleOverlayTextButtonEnabled) {
+                // activate}
                 vm.tools.toggleOverlayText = false;
             }
-            if (__webViewerConfig.toggleOverlayIconsButtonEnabled) { // activate}
+            if (__webViewerConfig.toggleOverlayIconsButtonEnabled) {
+                // activate}
                 vm.tools.toggleOverlayIcons = false;
             }
-            if (__webViewerConfig.synchronizedBrowsingEnabled) { // activate}
+            if (__webViewerConfig.synchronizedBrowsingEnabled) {
+                // activate}
                 vm.tools.toggleSynchro = false;
             } else {
-                vm.synchronizer.enable(false);  // disable it when the button is not present
+                vm.synchronizer.enable(false); // disable it when the button is not present
             }
-            if (__webViewerConfig.referenceLinesEnabled) { // activate}
+            if (__webViewerConfig.referenceLinesEnabled) {
+                // activate}
                 vm.tools.toggleReferenceLines = false;
             } else {
-                vm.referenceLines.enable(false);  // disable it when the button is not present
+                vm.referenceLines.enable(false); // disable it when the button is not present
             }
-            if (__webViewerConfig.crossHairEnabled) { // activate}
+            if (__webViewerConfig.crossHairEnabled) {
+                // activate}
                 vm.tools.crossHair = false;
             }
 
-            if (__webViewerConfig.customCommandEnabled) { // activate
-              vm.tools.customCommand = false;
-              vm.customCommandIconLabel = __webViewerConfig.customCommandIconLabel;
-              vm.customCommandIconClass = __webViewerConfig.customCommandIconClass;
+            if (__webViewerConfig.customCommandEnabled) {
+                // activate
+                vm.tools.customCommand = false;
+                vm.customCommandIconLabel =
+                    __webViewerConfig.customCommandIconLabel;
+                vm.customCommandIconClass =
+                    __webViewerConfig.customCommandIconClass;
             }
 
-            console.log('default tool: ', vm.toolbarDefaultTool)
+            console.log("default tool: ", vm.toolbarDefaultTool);
             if (vm.toolbarDefaultTool) {
                 vm.tools[vm.toolbarDefaultTool] = true;
                 vm.activeTool = vm.toolbarDefaultTool;
@@ -334,74 +420,109 @@
 
             if (vm.toolboxButtonsOrdering === undefined) {
                 vm.toolboxButtonsOrdering = [
-                    {type: "button", tool: "layout"},
-                    {type: "button", tool: "combinedTool"},
-                    {type: "button", tool: "zoom"},
-                    {type: "button", tool: "pan"},
+                    { type: "button", tool: "combinedTool" },
+                    { type: "button", tool: "pan" },
+                    { type: "button", tool: "windowing" },
+                    { type: "button", tool: "magnify" },
+                    { type: "button", tool: "lengthMeasure" },
+                    { type: "button", tool: "ellipticalRoi" },
+                    { type: "button", tool: "layout" },
+
                     {
                         type: "group",
-                        iconClasses: "glyphicon glyphicon-picture",
+                        iconClasses: "fa fa-expand",
                         title: "manipulation",
                         buttons: [
-                            {type: "button", tool: "invert"},
-                            {type: "button", tool: "windowing"},
-                            {type: "button", tool: "magnify"},
-                            {type: "button", tool: "rotateLeft"},
-                            {type: "button", tool: "rotateRight"},
-                            {type: "button", tool: "hflip"},
-                            {type: "button", tool: "vflip"},
-                        ]
+                            { type: "button", tool: "crossHair" },
+                            { type: "button", tool: "toggleSynchro" },
+                            { type: "button", tool: "toggleReferenceLines" },
+                            { type: "button", tool: "rectangleRoi" },
+                            { type: "button", tool: "pixelProbe" },
+                            { type: "button", tool: "simpleAngleMeasure" },
+                            { type: "button", tool: "angleMeasure" },
+                        ],
                     },
                     {
                         type: "group",
-                        iconClasses: "glyphicon glyphicon-pencil",
-                        title: "annotation",
+                        iconClasses: "fa fa-pen-square",
+                        title: "manipulation",
                         buttons: [
-                            {type: "button", tool: "lengthMeasure"},
-                            {type: "button", tool: "simpleAngleMeasure"},
-                            {type: "button", tool: "angleMeasure"},
-                            {type: "button", tool: "pixelProbe"},
-                            {type: "button", tool: "ellipticalRoi"},
-                            {type: "button", tool: "rectangleRoi"},
-                            {type: "button", tool: "arrowAnnotate"},
-                        ]
+                            { type: "button", tool: "rotateLeft" },
+                            { type: "button", tool: "rotateRight" },
+                            { type: "button", tool: "hflip" },
+                            { type: "button", tool: "vflip" },
+                            { type: "button", tool: "zoom" },
+                            { type: "button", tool: "invert" },
+                            { type: "button", tool: "toggleOverlayText" },
+                            { type: "button", tool: "toggleOverlayIcons" },
+                            { type: "button", tool: "arrowAnnotate" },
+                            { type: "button", tool: "keyImageCapture" },
+                            { type: "button", tool: "print" },
+                            { type: "button", tool: "downloadAsJpeg" },
+                            { type: "button", tool: "customCommand" },
+                        ],
                     },
-                    {type: "button", tool: "print"},
-                    {type: "button", tool: "downloadAsJpeg"},
-                    {type: "button", tool: "keyImageCapture"},
-                    {type: "button", tool: "toggleSynchro"},
-                    {type: "button", tool: "toggleReferenceLines"},
-                    {type: "button", tool: "crossHair"},
+
                     // Optional buttons to explicitely activate
                     // {type: "button", tool: "previousSeries"},
                     // {type: "button", tool: "nextSeries"},
-                    {type: "button", tool: "toggleOverlayText"},
-                    {type: "button", tool: "toggleOverlayIcons"},
-                    {type: "button", tool: "customCommand"},
-                    {type: "button", tool: "showInfoPopup"},
-                ]
+                ];
             }
             vm.viewports = {};
-            vm.pickableStudyIds = typeof vm.pickableStudyIds !== 'undefined' ? vm.pickableStudyIds : [];
-            vm.selectedStudyIds = typeof vm.selectedStudyIds !== 'undefined' ? vm.selectedStudyIds : [];
-            vm.studyDownloadEnabled = typeof vm.studyDownloadEnabled !== 'undefined' ? vm.studyDownloadEnabled : false;
-            vm.videoDisplayEnabled = typeof vm.videoDisplayEnabled !== 'undefined' ? vm.videoDisplayEnabled : true;
-            vm.keyImageCaptureEnabled = typeof vm.keyImageCaptureEnabled !== 'undefined' ? vm.keyImageCaptureEnabled : false;
-            vm.downloadAsJpegEnabled = typeof vm.downloadAsJpegEnabled !== 'undefined' ? vm.downloadAsJpegEnabled : false;
-            vm.combinedToolEnabled = typeof vm.combinedToolEnabled !== 'undefined' ? vm.combinedToolEnabled : false;
-            vm.showInfoPopupButtonEnabled = typeof vm.showInfoPopupButtonEnabled !== 'undefined' ? vm.showInfoPopupButtonEnabled : false;
-            vm.studyIslandsDisplayMode = vm.wvViewerController.getStudyIslandDisplayMode(__webViewerConfig.defaultStudyIslandsDisplayMode || "grid");
+            vm.pickableStudyIds =
+                typeof vm.pickableStudyIds !== "undefined"
+                    ? vm.pickableStudyIds
+                    : [];
+            vm.selectedStudyIds =
+                typeof vm.selectedStudyIds !== "undefined"
+                    ? vm.selectedStudyIds
+                    : [];
+            vm.studyDownloadEnabled =
+                typeof vm.studyDownloadEnabled !== "undefined"
+                    ? vm.studyDownloadEnabled
+                    : false;
+            vm.videoDisplayEnabled =
+                typeof vm.videoDisplayEnabled !== "undefined"
+                    ? vm.videoDisplayEnabled
+                    : true;
+            vm.keyImageCaptureEnabled =
+                typeof vm.keyImageCaptureEnabled !== "undefined"
+                    ? vm.keyImageCaptureEnabled
+                    : false;
+            vm.downloadAsJpegEnabled =
+                typeof vm.downloadAsJpegEnabled !== "undefined"
+                    ? vm.downloadAsJpegEnabled
+                    : false;
+            vm.combinedToolEnabled =
+                typeof vm.combinedToolEnabled !== "undefined"
+                    ? vm.combinedToolEnabled
+                    : false;
+            vm.showInfoPopupButtonEnabled =
+                typeof vm.showInfoPopupButtonEnabled !== "undefined"
+                    ? vm.showInfoPopupButtonEnabled
+                    : false;
+            vm.studyIslandsDisplayMode =
+                vm.wvViewerController.getStudyIslandDisplayMode(
+                    __webViewerConfig.defaultStudyIslandsDisplayMode || "grid"
+                );
 
             if (!__webViewerConfig.toggleOverlayIconsButtonEnabled) {
-                vm.wvViewerController.setOverlayIconsVisible(__webViewerConfig.displayOverlayIcons);
+                vm.wvViewerController.setOverlayIconsVisible(
+                    __webViewerConfig.displayOverlayIcons
+                );
             }
             if (!__webViewerConfig.toggleOverlayTextButtonEnabled) {
-                vm.wvViewerController.setOverlayTextVisible(__webViewerConfig.displayOverlayText);
+                vm.wvViewerController.setOverlayTextVisible(
+                    __webViewerConfig.displayOverlayText
+                );
             }
             vm.wvViewerController.setSelectedStudyIds(vm.selectedStudyIds);
 
             // Selection-related
-            vm.seriesItemSelectionEnabled = typeof vm.seriesItemSelectionEnabled !== 'undefined' ? vm.seriesItemSelectionEnabled : false;
+            vm.seriesItemSelectionEnabled =
+                typeof vm.seriesItemSelectionEnabled !== "undefined"
+                    ? vm.seriesItemSelectionEnabled
+                    : false;
             // 1. Values used by our internal directive.
             vm.selectedSeriesIds = vm.selectedSeriesIds || {};
             vm.selectedReportIds = vm.selectedReportIds || {};
@@ -409,57 +530,74 @@
             // 2. Values used by host applications.
             vm.selectedSeriesItems = vm.selectedSeriesItems || [];
             // Update selected***Ids based on selectedSeriesItems
-            scope.$watch('vm.selectedSeriesItems', function(newValues, oldValues) {
-                // Cleanup selected*Ids content
-                vm.selectedSeriesIds = vm.selectedSeriesIds || {};
-                _.forEach(vm.selectedSeriesIds, function(items, studyId) {
-                    vm.selectedSeriesIds[studyId] = [];
-                });
-                vm.selectedVideoIds = vm.selectedVideoIds || {};
-                _.forEach(vm.selectedVideoIds, function(items, studyId) {
-                    vm.selectedVideoIds[studyId] = [];
-                });
-                vm.selectedReportIds = vm.selectedReportIds || {};
-                _.forEach(vm.selectedReportIds, function(items, studyId) {
-                    vm.selectedReportIds[studyId] = [];
-                });
-
-                // Push new values
-                newValues && newValues
-                    .forEach(function(newValue) {
-                        var studyId = newValue.studyId;
-                        switch (newValue.type) {
-                        case 'series':
-                            vm.selectedSeriesIds[studyId] = vm.selectedSeriesIds[studyId] || [];
-                            vm.selectedSeriesIds[studyId].push(newValue.seriesId + ':' + newValue.instanceIndex);
-                            break;
-                        case 'report/pdf':
-                            vm.selectedReportIds[studyId] = vm.selectedReportIds[studyId] || [];
-                            vm.selectedReportIds[studyId].push(newValue.instanceId);
-                            break;
-                        case 'video/mpeg4':
-                            vm.selectedVideoIds[studyId] = vm.selectedVideoIds[studyId] || [];
-                            vm.selectedVideoIds[studyId].push(newValue.instanceId);
-                            break;
-                        }
+            scope.$watch(
+                "vm.selectedSeriesItems",
+                function (newValues, oldValues) {
+                    // Cleanup selected*Ids content
+                    vm.selectedSeriesIds = vm.selectedSeriesIds || {};
+                    _.forEach(vm.selectedSeriesIds, function (items, studyId) {
+                        vm.selectedSeriesIds[studyId] = [];
                     });
-            }, true);
+                    vm.selectedVideoIds = vm.selectedVideoIds || {};
+                    _.forEach(vm.selectedVideoIds, function (items, studyId) {
+                        vm.selectedVideoIds[studyId] = [];
+                    });
+                    vm.selectedReportIds = vm.selectedReportIds || {};
+                    _.forEach(vm.selectedReportIds, function (items, studyId) {
+                        vm.selectedReportIds[studyId] = [];
+                    });
+
+                    // Push new values
+                    newValues &&
+                        newValues.forEach(function (newValue) {
+                            var studyId = newValue.studyId;
+                            switch (newValue.type) {
+                                case "series":
+                                    vm.selectedSeriesIds[studyId] =
+                                        vm.selectedSeriesIds[studyId] || [];
+                                    vm.selectedSeriesIds[studyId].push(
+                                        newValue.seriesId +
+                                            ":" +
+                                            newValue.instanceIndex
+                                    );
+                                    break;
+                                case "report/pdf":
+                                    vm.selectedReportIds[studyId] =
+                                        vm.selectedReportIds[studyId] || [];
+                                    vm.selectedReportIds[studyId].push(
+                                        newValue.instanceId
+                                    );
+                                    break;
+                                case "video/mpeg4":
+                                    vm.selectedVideoIds[studyId] =
+                                        vm.selectedVideoIds[studyId] || [];
+                                    vm.selectedVideoIds[studyId].push(
+                                        newValue.instanceId
+                                    );
+                                    break;
+                            }
+                        });
+                },
+                true
+            );
 
             // Update selectedSeriesItems based on selected***Ids
-            scope.$watch(function() {
-                return {
-                    series: vm.selectedSeriesIds,
-                    reports: vm.selectedReportIds,
-                    videos: vm.selectedVideoIds
-                }
-            }, function(newValues, oldValues) {
-                var series = _
-                    .flatMap(newValues.series, function(seriesIds, studyId) {
-                        return seriesIds
-                            .map(function (seriesId) {
+            scope.$watch(
+                function () {
+                    return {
+                        series: vm.selectedSeriesIds,
+                        reports: vm.selectedReportIds,
+                        videos: vm.selectedVideoIds,
+                    };
+                },
+                function (newValues, oldValues) {
+                    var series = _.flatMap(
+                        newValues.series,
+                        function (seriesIds, studyId) {
+                            return seriesIds.map(function (seriesId) {
                                 // Split webviewer series id in orthanc series
                                 // id + frame index.
-                                var arr = seriesId.split(':');
+                                var arr = seriesId.split(":");
                                 var orthancSeriesId = arr[0];
                                 var instanceIndex = arr[1];
 
@@ -468,65 +606,187 @@
                                     seriesId: orthancSeriesId,
                                     studyId: studyId,
                                     instanceIndex: instanceIndex,
-                                    type: 'series'
-                                }
+                                    type: "series",
+                                };
                             });
-                    });
+                        }
+                    );
 
-                var reports = _
-                    .flatMap(newValues.reports, function(reportIds, studyId) {
-                        return reportIds
-                            .map(function (instanceId) {
+                    var reports = _.flatMap(
+                        newValues.reports,
+                        function (reportIds, studyId) {
+                            return reportIds.map(function (instanceId) {
                                 return {
                                     instanceId: instanceId,
                                     studyId: studyId,
-                                    type: 'report/pdf'
-                                }
+                                    type: "report/pdf",
+                                };
                             });
-                    });
+                        }
+                    );
 
-                var videos = _
-                    .flatMap(newValues.videos, function(videoIds, studyId) {
-                        return videoIds
-                            .map(function (instanceId) {
+                    var videos = _.flatMap(
+                        newValues.videos,
+                        function (videoIds, studyId) {
+                            return videoIds.map(function (instanceId) {
                                 return {
                                     instanceId: instanceId,
                                     studyId: studyId,
-                                    type: 'video/mpeg4'
-                                }
+                                    type: "video/mpeg4",
+                                };
                             });
-                    });
+                        }
+                    );
 
-                vm.selectedSeriesItems = []
-                    .concat(series)
-                    .concat(reports)
-                    .concat(videos);
-            }, true);
+                    vm.selectedSeriesItems = []
+                        .concat(series)
+                        .concat(reports)
+                        .concat(videos);
+                },
+                true
+            );
+
+                    // Add the indexImageLayout function
+                    function wvIndexImageLayout(params) {
+                        var x = params.x;
+                        var y = params.y;
+                        var layout = params.layout; 
+            var coordinates;
+            var layoutIndexMap;
+
+            switch (layout.x + ',' + layout.y) {
+                case "1,1":
+                    coordinates = { "0,0": "R-CC" };
+                    layoutIndexMap = { "R-CC": 0 };
+                    break;
+                case "2,1":
+                    coordinates = { "0,0": "R-CC", "0,1": "L-CC" };
+                    layoutIndexMap = { "R-CC": 0, "L-CC": 1 };
+                    break;
+                case "1,2":
+                    coordinates = { "0,0": "R-CC", "1,0": "R-MLO" };
+                    layoutIndexMap = { "R-CC": 0, "R-MLO": 2 };
+                    break;
+                case "2,2":
+                    coordinates = {
+                        "0,0": "R-CC",
+                        "0,1": "L-CC",
+                        "1,0": "R-MLO",
+                        "1,1": "L-MLO",
+                    };
+                    layoutIndexMap = {
+                        "R-CC": 0,
+                        "L-CC": 1,
+                        "R-MLO": 2,
+                        "L-MLO": 3,
+                    };
+                    break;
+                case "4,1":
+                    coordinates = {
+                        "0,0": "R-CC",
+                        "0,1": "R-MLO",
+                        "0,2": "L-MLO",
+                        "0,3": "L-CC",
+                    };
+                    layoutIndexMap = {
+                        "R-CC": 0,
+                        "R-MLO": 2,
+                        "L-MLO": 3,
+                        "L-CC": 1,
+                    };
+                    break;
+                default:
+                    return 0; // Unsupported layout
+            }
+
+            var key = y + ',' + x;
+            var pane = coordinates[key];
+
+            console.log("Hanging protocol coordinates: ", coordinates);
+            console.log("Hanging protocol layoutIndexMap: ", layoutIndexMap);
+            console.log("Hanging protocol Key: ", key);
+            console.log("Hanging protocol Pane: ", pane);
+
+            if (pane !== undefined) {
+                return layoutIndexMap[pane] !== undefined
+                    ? layoutIndexMap[pane]
+                    : 0;
+            }
+
+            return 0;
+        }
+
+        // Luego, definir la función wvFillAllPanesWithFirstSeries
+        function wvFillAllPanesWithFirstSeries(
+            vm,
+            wvStudyManager,
+            wvPaneManager,
+            wvViewerController
+        ) {
+            if (vm.selectedStudyIds && vm.selectedStudyIds[0]) {
+                wvStudyManager
+                    .get(vm.selectedStudyIds[0])
+                    .then(function (study) {
+                        // console.log('study: ', study);
+                        // console.log('study.series: ', study.series);
+                        // console.log('study.series.length: ', study.series.length);
+
+                        if (!study || !study.series || !study.series.length) {
+                            console.warn(
+                                "There are no series available to display"
+                            );
+                            return;
+                        }
+
+                        for (var x = 0; x < vm.tools.layout.x; x++) {
+                            for (var y = 0; y < vm.tools.layout.y; y++) {
+                                var pane = wvPaneManager.getPane(x, y);
+
+                                if (pane.isEmpty()) {
+                                    wvViewerController.setPane(x, y, {
+                                        seriesId: study.series[0],
+                                        isSelected: x === 0 && y === 0,
+                                        studyColor: study.color,
+                                        imageIndex: wvIndexImageLayout({
+                                            x: x,
+                                            y: y,
+                                            layout: vm.tools.layout                            
+                                        }),
+                                    });
+                                }
+                            }
+                        }
+                    });
+            }
+        }
+
+            // // Expose the functions to the view model (vm)
+            vm.indexImageLayout = wvIndexImageLayout;
+            vm.fillAllPanesWithFirstSeries = wvFillAllPanesWithFirstSeries;
 
             // Activate mobile interaction tools on mobile (not tablet)
             var uaParser = new UAParser();
-            vm.mobileInteraction = uaParser.getDevice().type === 'mobile';
-            if(vm.mobileInteraction){
+            vm.mobileInteraction = uaParser.getDevice().type === "mobile";
+            if (vm.mobileInteraction) {
                 vm.tools.combinedTool = true;
-                vm.activeTool = 'combinedTool';            }
+                vm.activeTool = "combinedTool";
+            }
 
             // Adapt breadcrumb displayed info based on the selected pane.
             wvPaneManager
                 .getSelectedPane()
                 .getStudy()
-                .then(function(study) {
+                .then(function (study) {
                     vm.selectedPaneStudyId = study && study.id;
                 });
-            wvPaneManager.onSelectedPaneChanged(function(pane) {
-                pane
-                    .getStudy()
-                    .then(function(study) {
-                        vm.selectedPaneStudyId = study && study.id;
-                    });
+            wvPaneManager.onSelectedPaneChanged(function (pane) {
+                pane.getStudy().then(function (study) {
+                    vm.selectedPaneStudyId = study && study.id;
+                });
             });
 
             // Apply viewport changes when toolbox action are clicked on.
-            vm.onActionClicked = function(action) {
+            vm.onActionClicked = function (action) {
                 // Retrieve selected pane (or leave the function if none).
                 var selectedPane = wvPaneManager.getSelectedPane();
 
@@ -535,90 +795,103 @@
                 }
                 if (selectedPane.csViewport) {
                     switch (action) {
-                        case 'invert':
+                        case "invert":
                             selectedPane.invertColor();
                             break;
-                        case 'vflip':
+                        case "vflip":
                             selectedPane.flipVertical();
                             break;
-                        case 'hflip':
+                        case "hflip":
                             selectedPane.flipHorizontal();
                             break;
-                        case 'rotateLeft':
+                        case "rotateLeft":
                             selectedPane.rotateLeft();
                             break;
-                        case 'rotateRight':
+                        case "rotateRight":
                             selectedPane.rotateRight();
                             break;
-                        case 'toggleSynchro':
-                            vm.synchronizer.enable(!vm.synchronizer.isEnabled());
+                        case "toggleSynchro":
+                            vm.synchronizer.enable(
+                                !vm.synchronizer.isEnabled()
+                            );
                             break;
-                        case 'toggleReferenceLines':
-                            vm.referenceLines.enable(!vm.referenceLines.isEnabled());
+                        case "toggleReferenceLines":
+                            vm.referenceLines.enable(
+                                !vm.referenceLines.isEnabled()
+                            );
                             break;
-                        case 'toggleOverlayText':
+                        case "toggleOverlayText":
                             vm.wvViewerController.toggleOverlayText();
                             break;
-                        case 'toggleOverlayIcons':
+                        case "toggleOverlayIcons":
                             vm.wvViewerController.toggleOverlayIcons();
                             break;
-                        case 'previousSeries':
+                        case "previousSeries":
                             vm.wvViewerController.previousSeries();
                             break;
-                        case 'nextSeries':
+                        case "nextSeries":
                             vm.wvViewerController.nextSeries();
                             break;
-                        case 'print':
+                        case "print":
                             window.print();
                             break;
-                        case 'downloadAsJpeg':
+                        case "downloadAsJpeg":
                             selectedPane.downloadAsJpeg(wvImageManager);
                             break;
-                        case 'customCommand':
+                        case "customCommand":
                             vm.wvViewerController.executeCustomCommand();
                             break;
-                        case 'showInfoPopup':
+                        case "showInfoPopup":
                             vm.infoPopupIsStartup = false;
                             vm.infoPopupEnabled = true;
                             break;
                         default:
-                            throw new Error('Unknown toolbar action.');
-                        }
-                    } else {
-                        switch (action) {
-                            case 'showInfoPopup':
-                                vm.infoPopupIsStartup = false;
-                                vm.infoPopupEnabled = true;
-                                break;
-                            default:
-                                throw new Error('Unknown toolbar action.');
-                            }
-
+                            throw new Error("Unknown toolbar action.");
                     }
-
+                } else {
+                    switch (action) {
+                        case "showInfoPopup":
+                            vm.infoPopupIsStartup = false;
+                            vm.infoPopupEnabled = true;
+                            break;
+                        default:
+                            throw new Error("Unknown toolbar action.");
+                    }
+                }
             };
             // Apply viewport change when a windowing preset has been
             // selected (from the toolbar).
-            vm.onWindowingPresetSelected = function(windowWidth, windowCenter) {
-
+            vm.onWindowingPresetSelected = function (
+                windowWidth,
+                windowCenter
+            ) {
                 if (this.readonly) {
                     return;
                 }
 
                 // Retrieve selected pane (or leave the function if none).
                 var selectedPane = wvPaneManager.getSelectedPane();
-                vm.wvWindowingViewportTool.applyWindowingToPane(selectedPane, windowWidth, windowCenter, false);
+                vm.wvWindowingViewportTool.applyWindowingToPane(
+                    selectedPane,
+                    windowWidth,
+                    windowCenter,
+                    false
+                );
             };
 
             // Store each panes' states.
             vm.panes = wvPaneManager.panes;
 
             // Keep pane layout model in sync.
-            scope.$watch('vm.tools.layout', function(layout) {
-                // Update panes' layout.
-                vm.wvViewerController.setLayout(layout.x, layout.y);
-            }, true);
-            vm.onItemDroppedToPane = function(x, y, config) {
+            scope.$watch(
+                "vm.tools.layout",
+                function (layout) {
+                    // Update panes' layout.
+                    vm.wvViewerController.setLayout(layout.x, layout.y);
+                },
+                true
+            );
+            vm.onItemDroppedToPane = function (x, y, config) {
                 // Set dropped pane as selected
                 config.isSelected = true;
 
@@ -627,176 +900,256 @@
             };
 
             // Enable/Disable annotation storage/retrieval from backend
-            scope.$watch('vm.annotationStorageEnabled', function(isEnabled, wasEnabled) {
-                if (isEnabled) {
-                    wvAnnotationManager.enableAnnotationStorage();
+            scope.$watch(
+                "vm.annotationStorageEnabled",
+                function (isEnabled, wasEnabled) {
+                    if (isEnabled) {
+                        wvAnnotationManager.enableAnnotationStorage();
+                    } else {
+                        wvAnnotationManager.disableAnnotationStorage();
+                    }
                 }
-                else {
-                    wvAnnotationManager.disableAnnotationStorage();
-                }
-            });
+            );
 
             vm.studiesColors = {
-                blue: [],
-                red: [],
                 green: [],
+                red: [],
+                blue: [],
                 yellow: [],
-                violet: []
+                violet: [],
             };
-            scope.$watch('vm.selectedStudyIds', function(newValues, oldValues) {
-                // Log study ids
-                console.log('selected studies ids: ', newValues);
-                wvViewerController.setSelectedStudyIds(newValues);
+            scope.$watch(
+                "vm.selectedStudyIds",
+                function (newValues, oldValues) {
+                    // Log study ids
+                    console.log("selected studies ids: ", newValues);
+                    wvViewerController.setSelectedStudyIds(newValues);
 
-                // Consider oldValues to be empty if this watch function is
-                // called at initialization.
-                if (_.isEqual(newValues, oldValues)) {
-                    oldValues = [];
-                }
+                    // Consider oldValues to be empty if this watch function is
+                    // called at initialization.
+                    if (_.isEqual(newValues, oldValues)) {
+                        oldValues = [];
+                    }
 
-                // If selected study is not in selectable ones, adapt
-                // selectables studies. This may sometime happens due to sync
-                // delay.
-                if (_.intersection(newValues, vm.pickableStudyIds).length !== newValues.length) {
-                    vm.pickableStudyIds = newValues;
-                }
+                    // If selected study is not in selectable ones, adapt
+                    // selectables studies. This may sometime happens due to sync
+                    // delay.
+                    if (
+                        _.intersection(newValues, vm.pickableStudyIds)
+                            .length !== newValues.length
+                    ) {
+                        vm.pickableStudyIds = newValues;
+                    }
 
-                // Cancel previous preloading, reset studies colors & remove
-                // study items' selection.
-                oldValues
-                    .filter(function(newStudyId) {
-                        // Retrieve studyIds that are no longer shown.
-                        return newValues.indexOf(newStudyId) === -1;
-                    })
-                    .forEach(function(oldStudyId) {
-                        // Cancel preloading.
-                        wvStudyManager.abortStudyLoading(oldStudyId);
+                    // Cancel previous preloading, reset studies colors & remove
+                    // study items' selection.
+                    oldValues
+                        .filter(function (newStudyId) {
+                            // Retrieve studyIds that are no longer shown.
+                            return newValues.indexOf(newStudyId) === -1;
+                        })
+                        .forEach(function (oldStudyId) {
+                            // Cancel preloading.
+                            wvStudyManager.abortStudyLoading(oldStudyId);
 
-                        // Set none color. Nice color for instance if a
-                        // series is still displayed in a viewport but it's
-                        // related study is no longer shown in the serieslist.
-                        wvStudyManager
-                            .get(oldStudyId)
-                            .then(function(study) {
-                                // Decr color usage.
-                                vm.studiesColors[study.color].splice(vm.studiesColors[study.color].indexOf(study.id), 1);
+                            // Set none color. Nice color for instance if a
+                            // series is still displayed in a viewport but it's
+                            // related study is no longer shown in the serieslist.
+                            wvStudyManager
+                                .get(oldStudyId)
+                                .then(function (study) {
+                                    // Decr color usage.
+                                    vm.studiesColors[study.color].splice(
+                                        vm.studiesColors[study.color].indexOf(
+                                            study.id
+                                        ),
+                                        1
+                                    );
 
-                                // Unbind color from the study.
-                                study.setColor('gray');
-                            });
+                                    // Unbind color from the study.
+                                    study.setColor("gray");
+                                });
 
-                        // Reset study items' selection in the serieslist.
-                        if (vm.selectedSeriesIds.hasOwnProperty(oldStudyId)) {
-                            delete vm.selectedSeriesIds[oldStudyId];
-                        }
-                        if (vm.selectedReportIds.hasOwnProperty(oldStudyId)) {
-                            delete vm.selectedReportIds[oldStudyId];
-                        }
-                        if (vm.selectedVideoIds.hasOwnProperty(oldStudyId)) {
-                            delete vm.selectedVideoIds[oldStudyId];
-                        }
-                        vm.selectedSeriesItems = vm.selectedSeriesItems
-                            .filter(function(seriesItem) {
-                                return seriesItem.studyId !== oldStudyId;
-                            });
-                    });
+                            // Reset study items' selection in the serieslist.
+                            if (
+                                vm.selectedSeriesIds.hasOwnProperty(oldStudyId)
+                            ) {
+                                delete vm.selectedSeriesIds[oldStudyId];
+                            }
+                            if (
+                                vm.selectedReportIds.hasOwnProperty(oldStudyId)
+                            ) {
+                                delete vm.selectedReportIds[oldStudyId];
+                            }
+                            if (
+                                vm.selectedVideoIds.hasOwnProperty(oldStudyId)
+                            ) {
+                                delete vm.selectedVideoIds[oldStudyId];
+                            }
+                            vm.selectedSeriesItems =
+                                vm.selectedSeriesItems.filter(function (
+                                    seriesItem
+                                ) {
+                                    return seriesItem.studyId !== oldStudyId;
+                                });
+                        });
 
-                // Preload studies, set studies color & fill first pane if
-                // empty.
-                newValues
-                    .filter(function(newStudyId) {
-                        // Retrieve studyIds that are new.
-                        return oldValues.indexOf(newStudyId) === -1;
-                    })
-                    .forEach(function(newStudyId) {
-                        // Preload them.
-                        wvStudyManager.loadStudy(newStudyId);
-                        wvAnnotationManager.loadStudyAnnotations(newStudyId);
+                    // Preload studies, set studies color & fill first pane if
+                    // empty.
+                    newValues
+                        .filter(function (newStudyId) {
+                            // Retrieve studyIds that are new.
+                            return oldValues.indexOf(newStudyId) === -1;
+                        })
+                        .forEach(function (newStudyId) {
+                            // Preload them.
+                            wvStudyManager.loadStudy(newStudyId);
+                            wvAnnotationManager.loadStudyAnnotations(
+                                newStudyId
+                            );
 
-                        // Set study color based on its position within the
-                        // selected study ids. Used to attribute a color in
-                        // the viewports so the end user can see directly which
-                        // study is being displayed.
-                        wvStudyManager
-                            .get(newStudyId)
-                            .then(function (study) {
-                                // Check the study doesn't already have a color
-                                // defined (through liveshare or external
-                                // world).
-                                if (!study.hasColor()) {
-                                    // Get a color that has not been used yet.
-                                    var availableColors = Object.keys(vm.studiesColors);
-                                    var minColorUsageCount = undefined;
-                                    var minColorUsageName;
-                                    for (var i=0; i<availableColors.length; ++i) {
-                                        var colorName = availableColors[i];
-                                        var colorUsageCount = vm.studiesColors[colorName].length;
-                                        if (typeof minColorUsageCount === 'undefined' || colorUsageCount < minColorUsageCount) {
-                                            minColorUsageCount = colorUsageCount;
-                                            minColorUsageName = colorName;
+                            // Set study color based on its position within the
+                            // selected study ids. Used to attribute a color in
+                            // the viewports so the end user can see directly which
+                            // study is being displayed.
+                            wvStudyManager
+                                .get(newStudyId)
+                                .then(function (study) {
+                                    // Check the study doesn't already have a color
+                                    // defined (through liveshare or external
+                                    // world).
+                                    if (!study.hasColor()) {
+                                        // Get a color that has not been used yet.
+                                        var availableColors = Object.keys(
+                                            vm.studiesColors
+                                        );
+                                        var minColorUsageCount = undefined;
+                                        var minColorUsageName;
+                                        for (
+                                            var i = 0;
+                                            i < availableColors.length;
+                                            ++i
+                                        ) {
+                                            var colorName = availableColors[i];
+                                            var colorUsageCount =
+                                                vm.studiesColors[colorName]
+                                                    .length;
+                                            if (
+                                                typeof minColorUsageCount ===
+                                                    "undefined" ||
+                                                colorUsageCount <
+                                                    minColorUsageCount
+                                            ) {
+                                                minColorUsageCount =
+                                                    colorUsageCount;
+                                                minColorUsageName = colorName;
+                                            }
                                         }
+
+                                        // Bind color to the study.
+                                        study.setColor(minColorUsageName);
+
+                                        // Incr color usage index.
+                                        vm.studiesColors[
+                                            minColorUsageName
+                                        ].push(study.id);
                                     }
+                                });
+                        });
 
-                                    // Bind color to the study.
-                                    study.setColor(minColorUsageName);
-
-                                    // Incr color usage index.
-                                    vm.studiesColors[minColorUsageName].push(study.id);
+                    // if first pane is empty, set the first series in the first study.
+                    if (newValues && newValues[0]) {
+                        wvStudyManager
+                            .get(newValues[0])
+                            .then(function (firstStudy) {
+                                var firstPane = wvPaneManager.getPane(0, 0);
+                                if (firstStudy && firstPane.isEmpty()) {
+                                    wvViewerController.setPane(0, 0, {
+                                        seriesId: firstStudy.series[0],
+                                        isSelected: true,
+                                        studyColor: firstStudy.color,
+                                    });
                                 }
                             });
-
-                    });
-
-
-                // if first pane is empty, set the first series in the first study.
-                if(newValues && newValues[0]){
-                    wvStudyManager.get(newValues[0]).then(function(firstStudy){
-                        var firstPane = wvPaneManager.getPane(0, 0);
-                        if(firstStudy && firstPane.isEmpty()){
-                          wvViewerController.setPane(0, 0, {seriesId: firstStudy.series[0], isSelected: true, studyColor: firstStudy.color})
-                        };
-                    });
-                }
-            }, true);
+                    }
+                },
+                true
+            );
 
             // Propagate series preloading events
             // @todo Add on-series-dropped callback and move out the rest of the events from wv-droppable-series.
             // @todo Only watch seriesIds & remove deep watch (opti).
-            scope.$watch('vm.panes', function(newViewports, oldViewports) {
-                for (var i=0; i<newViewports.length || i<oldViewports.length; ++i) {
-                    // Ignore changes unrelated to seriesId
-                    if (oldViewports[i] && newViewports[i] && oldViewports[i].seriesId === newViewports[i].seriesId
-                    || !oldViewports[i] && !newViewports[i]
+            scope.$watch(
+                "vm.panes",
+                function (newViewports, oldViewports) {
+                    for (
+                        var i = 0;
+                        i < newViewports.length || i < oldViewports.length;
+                        ++i
                     ) {
-                        continue;
-                    }
+                        wvFillAllPanesWithFirstSeries(
+                            vm,
+                            wvStudyManager,
+                            wvPaneManager,
+                            wvViewerController
+                        );
 
-                    // Set viewport's series
-                    if (!oldViewports[i] && newViewports[i]) {
-                        if (newViewports[i].seriesId) {
-                            $rootScope.$emit('UserSelectedSeriesId', newViewports[i].seriesId);
+                        // Ignore changes unrelated to seriesId
+                        if (
+                            (oldViewports[i] &&
+                                newViewports[i] &&
+                                oldViewports[i].seriesId ===
+                                    newViewports[i].seriesId) ||
+                            (!oldViewports[i] && !newViewports[i])
+                        ) {
+                            continue;
+                        }
+
+                        // Set viewport's series
+                        if (!oldViewports[i] && newViewports[i]) {
+                            if (newViewports[i].seriesId) {
+                                $rootScope.$emit(
+                                    "UserSelectedSeriesId",
+                                    newViewports[i].seriesId
+                                );
+                            }
+                        }
+                        // Remove viewport's series
+                        else if (oldViewports[i] && !newViewports[i]) {
+                            if (oldViewports[i].seriesId) {
+                                $rootScope.$emit(
+                                    "UserUnSelectedSeriesId",
+                                    oldViewports[i].seriesId
+                                );
+                            }
+                        }
+                        // Replace viewport's series
+                        else if (
+                            oldViewports[i] &&
+                            newViewports[i] &&
+                            oldViewports[i].seriesId !==
+                                newViewports[i].seriesId
+                        ) {
+                            if (oldViewports[i].seriesId) {
+                                $rootScope.$emit(
+                                    "UserUnSelectedSeriesId",
+                                    oldViewports[i].seriesId
+                                );
+                            }
+                            if (newViewports[i].seriesId) {
+                                $rootScope.$emit(
+                                    "UserSelectedSeriesId",
+                                    newViewports[i].seriesId
+                                );
+                            }
                         }
                     }
-                    // Remove viewport's series
-                    else if (oldViewports[i] && !newViewports[i]) {
-                        if (oldViewports[i].seriesId) {
-                            $rootScope.$emit('UserUnSelectedSeriesId', oldViewports[i].seriesId);
-                        }
-                    }
-                    // Replace viewport's series
-                    else if (oldViewports[i] && newViewports[i] && oldViewports[i].seriesId !== newViewports[i].seriesId) {
-                        if (oldViewports[i].seriesId) {
-                            $rootScope.$emit('UserUnSelectedSeriesId', oldViewports[i].seriesId);
-                        }
-                        if (newViewports[i].seriesId) {
-                            $rootScope.$emit('UserSelectedSeriesId', newViewports[i].seriesId);
-                        }
-                    }
-                }
-            }, true);
+                },
+                true
+            );
 
             // Adapt the first viewport to new seriesId
-            scope.$watch('vm.seriesId', function(newSeriesId, oldSeriesId) {
+            scope.$watch("vm.seriesId", function (newSeriesId, oldSeriesId) {
                 if (vm.panes[0]) {
                     // Change the series id
                     vm.panes[0].seriesId = newSeriesId;
@@ -811,27 +1164,33 @@
 
             // when the studyIslandsDisplayMode changes, the layout may change and so some directive may need
             // to recalculate their dimensions, so we need to trigger a "window change" event.
-            scope.$watch('vm.studyIslandsDisplayMode', function(newValue, oldValue){
-                vm.wvViewerController.saveStudyIslandDisplayMode(newValue);
-                window.localStorage.setItem("studyIslandsDisplayMode", newValue);
-                asap(function(){
-                    $(window).trigger("resize");
-                });
+            scope.$watch(
+                "vm.studyIslandsDisplayMode",
+                function (newValue, oldValue) {
+                    vm.wvViewerController.saveStudyIslandDisplayMode(newValue);
+                    window.localStorage.setItem(
+                        "studyIslandsDisplayMode",
+                        newValue
+                    );
+                    asap(function () {
+                        $(window).trigger("resize");
+                    });
 
-                // For some weird reason when the webviewer is on an iframe,
-                // asap is not working and is possibly triggered not at the good time.
-                // To be sure a window resize events is really trigerred we're calling it also after a $timeout
-                // Note: we do not remove asap to prevent a flash if the webviewer is not on an iframe.
-               $timeout(function() {
-                    $(window).trigger("resize");
-                });
-            });
+                    // For some weird reason when the webviewer is on an iframe,
+                    // asap is not working and is possibly triggered not at the good time.
+                    // To be sure a window resize events is really trigerred we're calling it also after a $timeout
+                    // Note: we do not remove asap to prevent a flash if the webviewer is not on an iframe.
+                    $timeout(function () {
+                        $(window).trigger("resize");
+                    });
+                }
+            );
 
-            console.log('registering media change events');
+            console.log("registering media change events");
 
-            function beforePrint(event){
-                console.log('beforePrint');
-                var $body = $('body');
+            function beforePrint(event) {
+                console.log("beforePrint");
+                var $body = $("body");
                 $body.addClass("print");
 
                 // because firefox does not support/executes codes after the cloned document as been rendered
@@ -839,29 +1198,36 @@
                 // we cannot calculate using the good body size for the clone document
                 // so we have to hardcode the body width (meaning we can only renders in A4 in firefox);
                 var uaParser = new UAParser();
-                var isFirefox = (uaParser.getBrowser().name === 'Firefox');
-                var isIE = (uaParser.getBrowser().name === 'IE');
-                var isEdge = (uaParser.getBrowser().name === 'Edge');
+                var isFirefox = uaParser.getBrowser().name === "Firefox";
+                var isIE = uaParser.getBrowser().name === "IE";
+                var isEdge = uaParser.getBrowser().name === "Edge";
                 console.log("ua parser", uaParser.getBrowser());
-                $body.css('width', '8.5in');
-                $body.css('height', '11in');
+                $body.css("width", "8.5in");
+                $body.css("height", "11in");
                 // console.log('html size', $html.width(), $html.height());
 
-                if(isIE){
-                    window.alert($translate.instant('GENERAL_PARAGRAPHS.INCOMPATIBLE_PRINT_BROWSER'));
+                if (isIE) {
+                    window.alert(
+                        $translate.instant(
+                            "GENERAL_PARAGRAPHS.INCOMPATIBLE_PRINT_BROWSER"
+                        )
+                    );
                 }
 
-                console.log('body size', $body.width(), $body.height());
+                console.log("body size", $body.width(), $body.height());
 
                 var panes = vm.paneManager.getAllPanes();
                 var $splitpane = $("wv-splitpane");
-                var splitpaneSize = {width: $splitpane.width(), height: $splitpane.height()}
+                var splitpaneSize = {
+                    width: $splitpane.width(),
+                    height: $splitpane.height(),
+                };
                 var panesCount = {
                     x: vm.tools.layout.x,
-                    y: vm.tools.layout.y
-                }
+                    y: vm.tools.layout.y,
+                };
 
-                for(var i = 0; i < panes.length; i++){
+                for (var i = 0; i < panes.length; i++) {
                     var $pane = panes[i];
                     var viewport = vm.viewports[$pane.$$hashKey];
                     var paneSize = {
@@ -873,88 +1239,108 @@
                         paneFinalRatio: 0,
                         canvasFinalWidth: 0,
                         canvasFinalHeight: 0,
-                        canvasFinalRatio: 0
+                        canvasFinalRatio: 0,
                     };
-                    paneSize.originalRatio = paneSize.originalWidth / paneSize.originalHeight;
-                    paneSize.paneFinalRatio = paneSize.paneFinalWidth / paneSize.paneFinalHeight;
+                    paneSize.originalRatio =
+                        paneSize.originalWidth / paneSize.originalHeight;
+                    paneSize.paneFinalRatio =
+                        paneSize.paneFinalWidth / paneSize.paneFinalHeight;
 
-                    if(paneSize.paneFinalRatio > 1){
+                    if (paneSize.paneFinalRatio > 1) {
                         // If pane width ratio means it's width is larger than it's height
-                        if(paneSize.paneFinalRatio > paneSize.originalRatio){
+                        if (paneSize.paneFinalRatio > paneSize.originalRatio) {
                             // the final pane is larger than the original
                             // So we should fit on the height to recalc the ratio
-                            console.log('case 1');
-                            paneSize.canvasFinalHeight = paneSize.paneFinalHeight;
-                            paneSize.canvasFinalWidth = paneSize.canvasFinalHeight * paneSize.originalRatio; // Then we calc the width according the ratio
+                            console.log("case 1");
+                            paneSize.canvasFinalHeight =
+                                paneSize.paneFinalHeight;
+                            paneSize.canvasFinalWidth =
+                                paneSize.canvasFinalHeight *
+                                paneSize.originalRatio; // Then we calc the width according the ratio
                         } else {
                             // the final pane is higher than or equal to the original
                             // So we should fit on the width
-                            console.log('case 2');
+                            console.log("case 2");
                             paneSize.canvasFinalWidth = paneSize.paneFinalWidth;
-                            paneSize.canvasFinalHeight = paneSize.canvasFinalWidth / paneSize.originalRatio; // Then we calc the width according the ratio
-
+                            paneSize.canvasFinalHeight =
+                                paneSize.canvasFinalWidth /
+                                paneSize.originalRatio; // Then we calc the width according the ratio
                         }
                     } else {
                         // If pane width ratio means it's height is higher than it's height
-                        if(paneSize.paneFinalRatio > paneSize.originalRatio){
+                        if (paneSize.paneFinalRatio > paneSize.originalRatio) {
                             // the final pane is larger than the original
                             // So we should fit on the height to recalc the ratio
-                            console.log('case 3');
-                            paneSize.canvasFinalHeight = paneSize.paneFinalHeight;
-                            paneSize.canvasFinalWidth = paneSize.canvasFinalHeight * paneSize.originalRatio; // Then we calc the width according the ratio
+                            console.log("case 3");
+                            paneSize.canvasFinalHeight =
+                                paneSize.paneFinalHeight;
+                            paneSize.canvasFinalWidth =
+                                paneSize.canvasFinalHeight *
+                                paneSize.originalRatio; // Then we calc the width according the ratio
                         } else {
                             // the final pane is higher than or equal to the original
                             // So we should fit on the width
-                            console.log('case 4');
+                            console.log("case 4");
                             paneSize.canvasFinalWidth = paneSize.paneFinalWidth;
-                            paneSize.canvasFinalHeight = paneSize.canvasFinalWidth / paneSize.originalRatio; // Then we calc the width according the ratio
-
+                            paneSize.canvasFinalHeight =
+                                paneSize.canvasFinalWidth /
+                                paneSize.originalRatio; // Then we calc the width according the ratio
                         }
                     }
 
-                    paneSize.canvasFinalRatio = paneSize.canvasFinalWidth / paneSize.canvasFinalHeight;
-                    console.log('paneSizes:', paneSize, 'splitpaneSize:', splitpaneSize, "panesCount:", panesCount);
+                    paneSize.canvasFinalRatio =
+                        paneSize.canvasFinalWidth / paneSize.canvasFinalHeight;
+                    console.log(
+                        "paneSizes:",
+                        paneSize,
+                        "splitpaneSize:",
+                        splitpaneSize,
+                        "panesCount:",
+                        panesCount
+                    );
                     // viewport.resizeCanvas(paneSize.canvasFinalWidth, paneSize.canvasFinalHeight);
                     // viewport.draw();
-                    var $canvas = $("[data-pane-hashkey='" + $pane.$$hashKey + "']").find('canvas');
+                    var $canvas = $(
+                        "[data-pane-hashkey='" + $pane.$$hashKey + "']"
+                    ).find("canvas");
                     $canvas.width(paneSize.canvasFinalWidth);
                     $canvas.height(paneSize.canvasFinalHeight);
                 }
+            }
 
-            };
-
-            function afterPrint(){
+            function afterPrint() {
                 console.log("afterprint");
-                var $body = $('body');
+                var $body = $("body");
                 // var $html = $('html');
                 $body.removeClass("print");
-                $body.css('width', '100%');
-                $body.css('height', '100%');
+                $body.css("width", "100%");
+                $body.css("height", "100%");
                 // $html.css('width', '100%');
                 // $html.css('height', '100%');
-                $(".wv-cornerstone-enabled-image canvas").css('width', 'auto');
-                $(".wv-cornerstone-enabled-image canvas").css('height', 'auto');
-                $(window).trigger('resize');  // to force screen and canvas recalculation
+                $(".wv-cornerstone-enabled-image canvas").css("width", "auto");
+                $(".wv-cornerstone-enabled-image canvas").css("height", "auto");
+                $(window).trigger("resize"); // to force screen and canvas recalculation
             }
 
-            window.addEventListener("beforeprint", function(event){
-                beforePrint(event)
-            })
-            var printMedia = window.matchMedia('print');
-            printMedia.addListener(function(mql) {
-            if(mql.matches) {
-                console.log('webkit equivalent of onbeforeprint');
-                beforePrint();
-            }
+            window.addEventListener("beforeprint", function (event) {
+                beforePrint(event);
+            });
+            var printMedia = window.matchMedia("print");
+            printMedia.addListener(function (mql) {
+                if (mql.matches) {
+                    console.log("webkit equivalent of onbeforeprint");
+                    beforePrint();
+                }
             });
 
-           window.addEventListener("afterprint", function(){
+            window.addEventListener("afterprint", function () {
                 afterPrint();
-            });$
+            });
+            $;
 
-            vm.cancelPrintMode = function(){
+            vm.cancelPrintMode = function () {
                 afterPrint();
-            }
+            };
         }
     }
 
@@ -963,5 +1349,4 @@
         var vm = this;
         vm.window = $window;
     }
-
 })();

@@ -15,122 +15,122 @@
 
     <!--BEWARE of using any app styles as @media can screw up tests -->
 
-    <link rel="stylesheet" href="/node_modules/mocha/mocha.css">
+    <!-- <link rel="stylesheet" href="/node_modules/mocha/mocha.css"> -->
 
 </head>
 <body>
 
-<h1><a href="specs.html">Spec Runner</a></h1>
+<!-- <h1><a href="specs.html">Spec Runner</a></h1>
 <p><strong>Make sure the REMOTE server is running</strong><br/>
     Click on a <em>description title</em> to narrow the scope to just its specs
     (see "<a href="http://mochajs.github.io/mocha/#grep-option" target="_blank" title="MochaJS grep option">
         ?grep</a>" in address bar).<br/>
     Click on a <em>spec title</em> to see the test implementation.<br/>
     Click on <em>page title</em> to start over.
-</p>
+</p> -->
 
-<div id="mocha"></div>
+<!-- <div id="mocha"></div> -->
 
     <!-- inject:testlibraries:js -->
-    <script src="/node_modules/mocha/mocha.js"></script>
-    <script src="/node_modules/chai/chai.js"></script>
-    <script src="/node_modules/sinon-chai/lib/sinon-chai.js"></script>
+    <!-- <script src="/node_modules/mocha/mocha.js" async></script>
+    <script src="/node_modules/chai/chai.js" async></script>
+    <script src="/node_modules/sinon-chai/lib/sinon-chai.js" async></script> -->
     <!-- endinject -->
 
-    <script>
+    <!-- <script>
         expect = chai.expect;
         AssertionError = chai.AssertionError;
         mocha.setup('bdd');
         mocha.traceIgnores = ['mocha.js', 'chai.js', 'angular.js'];
-    </script>
+    </script> -->
 
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/angular/angular.js"></script>
-    <script src="/bower_components/angular-animate/angular-animate.js"></script>
-    <script src="/bower_components/angular-resource/angular-resource.js"></script>
-    <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="/bower_components/cornerstone/dist/cornerstone.js"></script>
-    <script src="/bower_components/cornerstoneMath/dist/cornerstoneMath.js"></script>
-    <script src="/bower_components/hammerjs/hammer.js"></script>
-    <script src="/bower_components/cornerstoneTools/dist/cornerstoneTools.js"></script>
-    <script src="/bower_components/jpgjs/jpg.js"></script>
-    <script src="/bower_components/hamsterjs/hamster.js"></script>
-    <script src="/bower_components/lodash/lodash.js"></script>
-    <script src="/bower_components/jquery-ui/jquery-ui.js"></script>
-    <script src="/bower_components/angular-dragdrop/src/angular-dragdrop.js"></script>
-    <script src="/bower_components/angular-strap/dist/angular-strap.js"></script>
-    <script src="/bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
-    <script src="/bower_components/jqueryui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-    <script src="/bower_components/ng-range-filter/src/ngRangeFilter.js"></script>
-    <script src="/bower_components/sinon/index.js"></script>
-    <script src="/bower_components/angular-mocks/angular-mocks.js"></script>
-    <script src="/bower_components/bardjs/dist/bard.js"></script>
-    <script src="/bower_components/bardjs/dist/bard-ngRouteTester.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.js" async></script>
+    <script src="/bower_components/angular-resource/angular-resource.js" async></script>
+    <script src="/bower_components/angular-sanitize/angular-sanitize.js" async></script>
+    <script src="/bower_components/cornerstone/dist/cornerstone.js" async></script>
+    <script src="/bower_components/cornerstoneMath/dist/cornerstoneMath.js" async></script>
+    <script src="/bower_components/hammerjs/hammer.js" async></script>
+    <script src="/bower_components/cornerstoneTools/dist/cornerstoneTools.js" async></script>
+    <script src="/bower_components/jpgjs/jpg.js" async></script>
+    <script src="/bower_components/hamsterjs/hamster.js" async></script>
+    <script src="/bower_components/lodash/lodash.js" async></script>
+    <script src="/bower_components/jquery-ui/jquery-ui.js" async></script>
+    <!-- <script src="/bower_components/angular-dragdrop/src/angular-dragdrop.js" async></script> -->
+    <script src="/bower_components/angular-strap/dist/angular-strap.js" async></script>
+    <script src="/bower_components/angular-strap/dist/angular-strap.tpl.js" async></script>
+    <script src="/bower_components/jqueryui-touch-punch/jquery.ui.touch-punch.min.js" async></script>
+    <script src="/bower_components/ng-range-filter/src/ngRangeFilter.js" async></script>
+    <script src="/bower_components/sinon/index.js" async></script>
+    <script src="/bower_components/angular-mocks/angular-mocks.js" async></script>
+    <!-- <script src="/bower_components/bardjs/dist/bard.js" async></script>
+    <script src="/bower_components/bardjs/dist/bard-ngRouteTester.js" async></script> -->
     <!-- endbower -->
 
     <!-- inject:js -->
     <script src="/src/app/webviewer.module.js"></script>
-    <script src="/src/app/image/image-model.js"></script>
-    <script src="/src/app/image/image-repository.js"></script>
-    <script src="/src/app/image/image.directive.js"></script>
-    <script src="/src/app/orthanc/orthanc-api-service.js"></script>
-    <script src="/src/app/orthanc/orthanc-image-loader.js"></script>
-    <script src="/src/app/others/wv-studylist.js"></script>
-    <script src="/src/app/overlay/wv-overlay-scrollbar.js"></script>
-    <script src="/src/app/overlay/wv-overlay.js"></script>
-    <script src="/src/app/series/orthanc-series-adapter.js"></script>
-    <script src="/src/app/series/series.model.js"></script>
-    <script src="/src/app/series/series.repository.js"></script>
-    <script src="/src/app/series/wv-viewport-series.js"></script>
-    <script src="/src/app/serieslist/wv-serieslist.js"></script>
-    <script src="/src/app/splitpane/wv-splitpane.js"></script>
-    <script src="/src/app/toolbar/wv-toolbar-setting.js"></script>
-    <script src="/src/app/toolbar/wv-toolbar-state.js"></script>
-    <script src="/src/app/toolbar/wv-toolbar-tool.js"></script>
-    <script src="/src/app/toolbar/wv-toolbar.js"></script>
-    <script src="/src/app/viewport-refactoring/size.directive.js"></script>
-    <script src="/src/app/viewport-states/wv-state-invert.js"></script>
-    <script src="/src/app/viewport-states/wv-state-play.js"></script>
-    <script src="/src/app/viewport-tools/wv-tool-anglemeasure.js"></script>
-    <script src="/src/app/viewport-tools/wv-tool-ellipticalroi.js"></script>
-    <script src="/src/app/viewport-tools/wv-tool-lengthmeasure.js"></script>
-    <script src="/src/app/viewport-tools/wv-tool-pan.js"></script>
-    <script src="/src/app/viewport-tools/wv-tool-pixelprobe.js"></script>
-    <script src="/src/app/viewport-tools/wv-tool-rectangleroi.js"></script>
-    <script src="/src/app/viewport-tools/wv-tool-stackscroll.js"></script>
-    <script src="/src/app/viewport-tools/wv-tool-zoom.js"></script>
-    <script src="/src/app/viewport/wv-scroll-on-over.js"></script>
-    <script src="/src/app/viewport/wv-scroll-on-wheel.js"></script>
-    <script src="/src/app/viewport/wv-viewport-draggable.js"></script>
-    <script src="/src/app/viewport/wv-viewport-droppable.js"></script>
-    <script src="/src/app/viewport/wv-viewport-mouse-events.js"></script>
-    <script src="/src/app/viewport/wv-viewport.js"></script>
+    <script src="/src/app/image/image-model.js" async></script>
+    <script src="/src/app/image/image-repository.js" async></script>
+    <script src="/src/app/image/image.directive.js" async></script>
+    <script src="/src/app/orthanc/orthanc-api-service.js" async></script>
+    <script src="/src/app/orthanc/orthanc-image-loader.js" async></script>
+    <script src="/src/app/others/wv-studylist.js" async></script>
+    <script src="/src/app/overlay/wv-overlay-scrollbar.js" async></script>
+    <script src="/src/app/overlay/wv-overlay.js" async></script>
+    <script src="/src/app/series/orthanc-series-adapter.js" async></script>
+    <script src="/src/app/series/series.model.js" async></script>
+    <script src="/src/app/series/series.repository.js" async></script>
+    <script src="/src/app/series/wv-viewport-series.js" async></script>
+    <script src="/src/app/serieslist/wv-serieslist.js" async></script>
+    <script src="/src/app/splitpane/wv-splitpane.js" async></script>
+    <script src="/src/app/toolbar/wv-toolbar-setting.js" async></script>
+    <script src="/src/app/toolbar/wv-toolbar-state.js" async></script>
+    <script src="/src/app/toolbar/wv-toolbar-tool.js" async></script>
+    <script src="/src/app/toolbar/wv-toolbar.js" async></script>
+    <script src="/src/app/viewport-refactoring/size.directive.js" async></script>
+    <script src="/src/app/viewport-states/wv-state-invert.js" async></script>
+    <script src="/src/app/viewport-states/wv-state-play.js" async></script>
+    <script src="/src/app/viewport-tools/wv-tool-anglemeasure.js" async></script>
+    <script src="/src/app/viewport-tools/wv-tool-ellipticalroi.js" async></script>
+    <script src="/src/app/viewport-tools/wv-tool-lengthmeasure.js" async></script>
+    <script src="/src/app/viewport-tools/wv-tool-pan.js" async></script>
+    <script src="/src/app/viewport-tools/wv-tool-pixelprobe.js" async></script>
+    <script src="/src/app/viewport-tools/wv-tool-rectangleroi.js" async></script>
+    <script src="/src/app/viewport-tools/wv-tool-stackscroll.js" async></script>
+    <script src="/src/app/viewport-tools/wv-tool-zoom.js" async></script>
+    <script src="/src/app/viewport/wv-scroll-on-over.js" async></script>
+    <script src="/src/app/viewport/wv-scroll-on-wheel.js" async></script>
+    <script src="/src/app/viewport/wv-viewport-draggable.js" async></script>
+    <script src="/src/app/viewport/wv-viewport-droppable.js" async></script>
+    <script src="/src/app/viewport/wv-viewport-mouse-events.js" async></script>
+    <script src="/src/app/viewport/wv-viewport.js" async></script>
     <!-- endinject -->
 
     <!-- inject:spechelpers:js -->
-    <script src="/src/test-helpers/bind-polyfill.js"></script>
-    <script src="/src/test-helpers/orthanc-mock.js"></script>
-    <script src="/src/test-helpers/orthanc-data/instances.js"></script>
-    <script src="/src/test-helpers/orthanc-data/seriess.js"></script>
-    <script src="/src/test-helpers/orthanc-data/studies.js"></script>
+    <script src="/src/test-helpers/bind-polyfill.js" async></script>
+    <script src="/src/test-helpers/orthanc-mock.js" async></script>
+    <script src="/src/test-helpers/orthanc-data/instances.js" async></script>
+    <script src="/src/test-helpers/orthanc-data/seriess.js" async></script>
+    <script src="/src/test-helpers/orthanc-data/studies.js" async></script>
     <!-- endinject -->
 
     <!-- inject:specs:js -->
-    <script src="/src/app/image/cornerstone-loader.spec.js"></script>
-    <script src="/src/app/image/image-model.spec.js"></script>
-    <script src="/src/app/image/image-repository.spec.js"></script>
-    <script src="/src/app/image/image.directive.spec.js"></script>
-    <script src="/src/app/overlay/overlay.directive.spec.js"></script>
-    <script src="/src/app/series/orthanc-series-adapter.spec.js"></script>
-    <script src="/src/app/series/series.model.spec.js"></script>
-    <script src="/src/app/series/series.repository.spec.js"></script>
-    <script src="/src/app/viewport-refactoring/size.directive.spec.js"></script>
+    <script src="/src/app/image/cornerstone-loader.spec.js" async></script>
+    <script src="/src/app/image/image-model.spec.js" async></script>
+    <script src="/src/app/image/image-repository.spec.js" async></script>
+    <script src="/src/app/image/image.directive.spec.js" async></script>
+    <script src="/src/app/overlay/overlay.directive.spec.js" async></script>
+    <script src="/src/app/series/orthanc-series-adapter.spec.js" async></script>
+    <script src="/src/app/series/series.model.spec.js" async></script>
+    <script src="/src/app/series/series.repository.spec.js" async></script>
+    <script src="/src/app/viewport-refactoring/size.directive.spec.js" async></script>
     <script src="/src/app/viewport-refactoring/viewport.directive.spec.js"></script>
     <!-- endinject -->
 
     <!-- inject:templates:js -->
-    <script src="/.tmp/templates.js"></script>
+    <script src="/.tmp/templates.js" async></script>
     <!-- endinject -->
 
     <script>

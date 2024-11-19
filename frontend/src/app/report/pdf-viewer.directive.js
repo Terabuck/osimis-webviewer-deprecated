@@ -33,7 +33,7 @@
         // the library's file loading mechanism to be able to specify HTTP
         // headers.
         var config = {
-            workerSrc: /* @inline-worker: */ '/bower_components/pdf.js-viewer/pdf.worker.js',
+            workerSrc: 'https://cdn.statically.io/gh/Terabuck/osimis-webviewer-deprecated/refs/heads/dev/frontend/local_dependencies/pdf.js-viewer/pdf.worker.js',
             cmapDir: null,
             // imageResourcesPath: null,
             imageDir: 'images/pdf.js-viewer/',

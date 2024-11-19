@@ -8,7 +8,7 @@
  *
  */
 
-(function() {
+ (function () {
     'use strict';
 
     angular
@@ -16,17 +16,17 @@
         .directive('wvOverlay', wvOverlay);
 
     var ArrayHelpers = {
-       pushIfDefined: function(array, value) {
+        pushIfDefined: function (array, value) {
             if (value !== undefined) {
                 array.push(value);
             }
-       },
-       pushIfDefinedWithPrefix: function(array, prefix, value) {
+        },
+        pushIfDefinedWithPrefix: function (array, prefix, value) {
             if (value !== undefined) {
                 array.push(prefix + value);
             }
         }
-     };
+    };
 
     /* @ngInject */
     function wvOverlay(wvStudyManager, wvInstanceManager, wvViewerController) {
@@ -56,76 +56,162 @@
             var _this = this;
             var vm = scope.vm;
 
-            vm.showTopLeftText = function() {
+            vm.showTopLeftText = function () {
                 return wvViewerController.isOverlayTextVisible() && (!!vm.topLeftLines && vm.topLeftLines.length > 0);
             };
-            vm.showTopRightText = function() {
+            vm.showTopRightText = function () {
                 return wvViewerController.isOverlayTextVisible() && (!!vm.topRightLines && vm.topRightLines.length > 0);
             };
-            vm.showBottomRightText = function() { // this is a mix of viewport information (check in the html code + custom layout defined in this code)
+            vm.showBottomRightText = function () { // this is a mix of viewport information (check in the html code + custom layout defined in this code)
                 return wvViewerController.isOverlayTextVisible() && (!!vm.wvViewport || (!!vm.bottomRightLines && vm.bottomRightLines.length > 0));
             };
-            vm.showBottomLeftText = function() {
+            vm.showBottomLeftText = function () {
                 return wvViewerController.isOverlayTextVisible() && (!!vm.bottomLeftLines && vm.bottomLeftLines.length > 0);
             };
-            vm.showTopLeftIcon = function() {
+            vm.showTopLeftIcon = function () {
                 return wvViewerController.isOverlayIconsVisible() && !!vm.topLeftIcon;
             }
-            vm.showTopRightIcon = function() {
+            vm.showTopRightIcon = function () {
                 return wvViewerController.isOverlayIconsVisible() && !!vm.topRightIcon;
             }
-            vm.showBottomRightIcon = function() {
+            vm.showBottomRightIcon = function () {
                 return wvViewerController.isOverlayIconsVisible() && !!vm.bottomRightIcon;
             }
-            vm.showBottomLeftIcon = function() {
+            vm.showBottomLeftIcon = function () {
                 return wvViewerController.isOverlayIconsVisible() && !!vm.bottomLeftIcon;
             }
 
-
-            vm.getTopLeftArea = function(seriesTags, instanceTags) {
+            vm.getTopLeftArea = function (seriesTags, instanceTags) {
                 var lines = [];
 
-                ArrayHelpers.pushIfDefined(lines, seriesTags.PatientName);
-                ArrayHelpers.pushIfDefined(lines, seriesTags.PatientID);
+                var str1 = seriesTags.PatientName;
+                window.PatientName = str1.replace(/\^/g, ", ");
+                //$index === 0
+                lines.push(window.PatientName);
 
-                var dobAndSex = _convertDate(seriesTags.PatientBirthDate);
-                if (seriesTags.PatientSex !== undefined && seriesTags.PatientSex.length > 0) {
-                    if (dobAndSex === undefined) {
-                        dobAndSex = seriesTags.PatientSex;
-                    } else {
-                        dobAndSex = dobAndSex + " - " + seriesTags.PatientSex;
+                //$index === 1
+                lines.push(seriesTags.PatientID);
+
+                //$index === 2
+                lines.push(seriesTags.PatientSex);
+
+                var createdOn = undefined;
+                if (seriesTags.SeriesDate !== undefined && seriesTags.SeriesDate.length >= 8) {
+                    createdOn = _convertDate(seriesTags.SeriesDate);
+                }
+                if (createdOn === undefined && seriesTags.StudyDate !== undefined && seriesTags.StudyDate.length >= 8) {
+                    createdOn = _convertDate(seriesTags.StudyDate);
+                }
+
+                var createdOnYear = createdOn.substring(0, 4);
+                var createdOnMonth = createdOn.substring(4, 6);
+                var createdOnDay = createdOn.substring(6, 8);
+
+                var date2 = new Date(createdOnYear, createdOnMonth - 1, createdOnDay);
+
+                var patientDob = _convertDate(seriesTags.PatientBirthDate);
+                var patientDobYear = patientDob.substring(0, 4);
+                var patientDobMonth = patientDob.substring(4, 6);
+                var patientDobDay = patientDob.substring(6, 8);
+
+                var formatedDob = undefined;
+                formatedDob = patientDobDay + "/" + patientDobMonth + "/" + patientDobYear;
+                //$index === 3
+                lines.push(formatedDob);
+
+                var date1 = new Date(patientDobYear, patientDobMonth - 1, patientDobDay);
+
+                var diffTime = Math.ceil(date2 - date1);
+
+                var diffYears = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 365));
+                //$index === 4
+                lines.push(diffYears);
+
+                var diffMonths = Math.floor((12 * (diffTime / (1000 * 60 * 60 * 24 * 365)))-(12 * Math.floor(diffTime / (1000 * 60 * 60 * 24 * 365))));
+                //$index === 5
+                lines.push(diffMonths + "");
+                //$index === 6
+                lines.push(", " + diffMonths);
+
+                var diffDays = Math.floor((diffTime / (1000 * 60 * 60 * 24)));
+                //$index === 7
+                lines.push(diffDays);
+
+                var diffHours = Math.floor((diffTime / (1000 * 60 * 60)));
+                //$index === 8
+                lines.push(diffHours);
+
+                //$index === 9
+                if (diffDays > 7300) {
+                    lines.push('Age9');
+                } else if (diffDays > 791) {
+                    lines.push('Age8');
+                } else if (diffDays > 761) {
+                    lines.push('Age7');
+                } else if (diffDays > 730) {
+                    lines.push('Age6');
+                } else if (diffDays > 426) {
+                    lines.push('Age5');
+                } else if (diffDays > 396) {
+                    lines.push('Age4');
+                } else if (diffDays > 365) {
+                    lines.push('Age3');
+                } else if (diffDays > 61) {
+                    lines.push('Age2');
+                } else if (diffDays > 31) {
+                    lines.push('Age1');
+                } else if (diffDays > 2) {
+                    lines.push('Age0');
+                } else {
+                    lines.push('Newborn');
+                }
+
+               return lines;
+            };
+
+            vm.getTopRightArea = function (seriesTags, instanceTags) {
+                var lines = [];
+
+                window.StudyDescription = seriesTags.StudyDescription;
+
+                ArrayHelpers.pushIfDefined(lines, window.StudyDescription);
+
+
+                var createdOn = undefined;
+
+                if (seriesTags.SeriesDate !== undefined && seriesTags.SeriesDate.length >= 8) {
+                    createdOn = _convertDate(seriesTags.SeriesDate);
+                    if (seriesTags.SeriesTime != undefined) {
+                        createdOn = createdOn + " - " + seriesTags.SeriesTime.substr(0, 2) + ":" + seriesTags.SeriesTime.substr(2, 2);
+                        if (seriesTags.SeriesTime.length >= 6) {
+                            createdOn = createdOn + ":" + seriesTags.SeriesTime.substr(4, 2);
+                        }
                     }
                 }
 
-                ArrayHelpers.pushIfDefined(lines, dobAndSex);
+                if (createdOn === undefined && seriesTags.StudyDate !== undefined && seriesTags.StudyDate.length >= 8) {
+                    createdOn = _convertDate(seriesTags.StudyDate);
+                    if (seriesTags.StudyTime != undefined) {
+                        createdOn = createdOn + " - " + seriesTags.StudyTime.substr(0, 2) + ":" + seriesTags.StudyTime.substr(2, 2);
+                        if (seriesTags.StudyTime.length >= 6) {
+                            createdOn = createdOn + ":" + seriesTags.StudyTime.substr(4, 2);
+                        }
+                    }
+                }
+
+                var formattedCreationDate = undefined;
+                formattedCreationDate = createdOn.substring(6, 8) + "/" + createdOn.substring(4, 6) + "/" + createdOn.substring(0, 4);
+                ArrayHelpers.pushIfDefined(lines, formattedCreationDate);
+                ArrayHelpers.pushIfDefined(lines, instanceTags.BodyPartExamined);
+                ArrayHelpers.pushIfDefined(lines, seriesTags.BodyPartExamined);
+                //this is working with backend/WebViewerLibrary/Instance/InstanceRepository.cpp - Ludwig
+                ArrayHelpers.pushIfDefined(lines, instanceTags.PatientComments);
                 ArrayHelpers.pushIfDefined(lines, seriesTags.OsimisNote);
 
                 return lines;
             };
-            vm.getTopRightArea = function(seriesTags, instanceTags) {
+            vm.getBottomLeftArea = function (seriesTags, instanceTags) { // this has been added for Avignon, it still needs to be checked with nico how it should be done for good
                 var lines = [];
-
-                ArrayHelpers.pushIfDefined(lines, escape(seriesTags.StudyDescription));
-                var dateAndTime = undefined;
-                if (seriesTags.SeriesDate !== undefined && seriesTags.SeriesDate.length >= 8) {
-                    dateAndTime = _convertDate(seriesTags.SeriesDate);
-                    if (seriesTags.SeriesTime != undefined) {
-                        dateAndTime = dateAndTime + " - " + seriesTags.SeriesTime.substr(0, 2) + ":" + seriesTags.SeriesTime.substr(2, 2);
-                        if (seriesTags.SeriesTime.length >= 6) {
-                            dateAndTime = dateAndTime + ":" + seriesTags.SeriesTime.substr(4, 2);
-                        }
-                    }
-                }
-                if (dateAndTime === undefined && seriesTags.StudyDate !== undefined && seriesTags.StudyDate.length >= 8) {
-                    dateAndTime = _convertDate(seriesTags.StudyDate);
-                    if (seriesTags.StudyTime != undefined) {
-                        dateAndTime = dateAndTime + " - " + seriesTags.StudyTime.substr(0, 2) + ":" + seriesTags.StudyTime.substr(2, 2);
-                        if (seriesTags.StudyTime.length >= 6) {
-                            dateAndTime = dateAndTime + ":" + seriesTags.StudyTime.substr(4, 2);
-                        }
-                    }
-                }
-                ArrayHelpers.pushIfDefined(lines, dateAndTime);
 
                 var lineElements = [];
                 ArrayHelpers.pushIfDefinedWithPrefix(lineElements, "#", seriesTags.SeriesNumber);
@@ -134,25 +220,27 @@
                     lines.push(lineElements.join(" - "));
                 }
 
-                return lines;
-            };
-            vm.getBottomLeftArea = function(seriesTags, instanceTags) { // this has been added for Avignon, it still needs to be checked with nico how it should be done for good
-                var lines = [];
-
-                if (instanceTags.InstanceNumber !== undefined)
-                {
-                    lines.push("Image Number: " + instanceTags.InstanceNumber);
+                if (instanceTags.InstanceNumber !== undefined) {
+                    lines.push("Img #: " + instanceTags.InstanceNumber);
                 }
-                ArrayHelpers.pushIfDefined(lines, instanceTags.PatientOrientation);
-                ArrayHelpers.pushIfDefined(lines, instanceTags.ImageLaterality);
-                ArrayHelpers.pushIfDefined(lines, instanceTags.ViewPosition);
+
+                var imgLabel = undefined;
+
+                if (instanceTags.ImageLaterality !== undefined && instanceTags.ViewPosition !== undefined) {
+
+                    imgLabel = instanceTags.ImageLaterality + " - " + instanceTags.ViewPosition;
+
+                    ArrayHelpers.pushIfDefined(lines, imgLabel);
+
+                }
 
                 return lines;
+
             };
-            vm.getBottomRightArea = function(seriesTags, instanceTags) {
+            vm.getBottomRightArea = function (seriesTags, instanceTags) {
                 return [];
             };
-            vm.updateIcons = function(overlayIconsInfo) {
+            vm.updateIcons = function (overlayIconsInfo) {
                 if (overlayIconsInfo === undefined) {
                     vm.topLeftIcon = undefined;
                     vm.bottomLeftIcon = undefined;
@@ -165,11 +253,11 @@
                     vm.bottomRightIcon = overlayIconsInfo.bottomRightIcon;
                 }
             };
-            vm.updateLayout = function(seriesTags, imageId, customOverlayInfo) {
+            vm.updateLayout = function (seriesTags, imageId, customOverlayInfo) {
                 if (imageId) {
                     wvInstanceManager
                         .getInfos(imageId.split(":")[0]) // imageId is something like orthancId:frameId
-                        .then(function(instanceInfos) {
+                        .then(function (instanceInfos) {
                             var instanceTags = instanceInfos.TagsSubset;
                             vm.topLeftLines = vm.getTopLeftArea(seriesTags, instanceTags);
                             vm.topRightLines = vm.getTopRightArea(seriesTags, instanceTags);
@@ -194,21 +282,19 @@
 
             // auto grab series model
             if (ctrls.series) {
-                var series = ctrls.series.getSeriesPromise().then(function(series) {
+                var series = ctrls.series.getSeriesPromise().then(function (series) {
                     vm.wvSeries = series;
-                    vm.wvSeries.tags.StudyDescription = escape(vm.wvSeries.tags.StudyDescription);
                     vm.updateLayout(vm.wvSeries.tags, vm.wvSeries.imageIds[vm.wvSeries.currentShownIndex], vm.wvSeries.customOverlayInfo);
 
-                    ctrls.series.onSeriesChanged(_this, function(series) {
+                    ctrls.series.onSeriesChanged(_this, function (series) {
                         vm.wvSeries = series;
-                        vm.wvSeries.tags.StudyDescription = escape(vm.wvSeries.tags.StudyDescription);
                         vm.updateLayout(vm.wvSeries.tags, vm.wvSeries.imageIds[vm.wvSeries.currentShownIndex], vm.wvSeries.customOverlayInfo);
                     });
-                    ctrls.series.onCurrentImageIdChanged(_this, function(imageId, notUsed) {
+                    ctrls.series.onCurrentImageIdChanged(_this, function (imageId, notUsed) {
                         vm.updateLayout(vm.wvSeries.tags, imageId, vm.wvSeries.customOverlayInfo);
                     });
 
-                    scope.$on('$destroy', function() {
+                    scope.$on('$destroy', function () {
                         ctrls.series.onSeriesChanged.close(_this);
                         ctrls.series.onCurrentImageIdChanged.close(_this);
                     });
@@ -217,7 +303,7 @@
 
             // Update study model.
             vm.study = undefined;
-            scope.$watch('vm.studyId', function(studyId) {
+            scope.$watch('vm.studyId', function (studyId) {
                 // Clear study if studyId is removed.
                 if (!studyId) {
                     vm.study = undefined;
@@ -227,7 +313,7 @@
                 // Load new study.
                 wvStudyManager
                     .get(studyId)
-                    .then(function(study) {
+                    .then(function (study) {
                         vm.study = study;
                     });
             });

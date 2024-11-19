@@ -9,10 +9,10 @@
         }"
         ng-style="{
             'position': 'absolute',
-            'width': 'calc('+vm.rowWidth+' - 4px)',
-            'height': 'calc('+vm.rowHeight+' - 4px)',
-            'left': 'calc('+$pane.x+' * '+vm.rowWidth+' + 2px)',
-            'top': 'calc('+$pane.y+' * '+vm.rowHeight+' + 2px)'
+            'width': 'calc('+vm.rowWidth+' - 1px)',
+            'height': 'calc('+vm.rowHeight+' - 1px)',
+            'left': 'calc('+$pane.x+' * '+vm.rowWidth+' + 1px)',
+            'top': 'calc('+$pane.y+' * '+vm.rowHeight+' + 1px)'
         }"
         data-pane-hashkey="{{ $pane.$$hashKey }}"
         ng-click="!vm.readonly && vm.paneManager.selectPane($pane.x, $pane.y)"

@@ -31,10 +31,11 @@ module.exports = function() {
         css: cssDir + 'styles.css',
         fonts: [
             bower.directory + 'font-awesome/web-fonts-with-css/css/fontawesome-all.css',
-            bower.directory + 'font-awesome/web-fonts-with-css/webfonts/*.{eot,svg,ttf,woff,woff2}',
-            bower.directory + 'bootstrap/fonts/**/*.{eot,svg,ttf,woff,woff2}',
-            bower.directory + 'open-sans/**/*.{eot,svg,ttf,woff,woff2}'
-        ],
+            bower.directory + 'font-awesome/web-fonts-with-css/webfonts/*.{ttf,woff,woff2}',
+            // bower.directory + 'font-awesome/web-fonts-with-css/webfonts/*.{ttf,woff}',
+            // bower.directory + 'bootstrap/fonts/**/*.{eot,svg,ttf,woff,woff2}',
+            // bower.directory + 'open-sans/**/*.{eot,svg,ttf,woff,woff2}'
+            ],
         webfonts: [
           bower.directory + 'font-awesome/web-fonts-with-css/webfonts/*.{eot,svg,ttf,woff,woff2}',
         ],

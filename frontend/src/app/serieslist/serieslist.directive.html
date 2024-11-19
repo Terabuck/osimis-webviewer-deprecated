@@ -91,7 +91,7 @@
         placement="right"
     >
         <div class="wvSerieslist__picture">
-            <i class="wvSerieslist__placeholderIcon fa fa-video"></i>
+            <i class="wvSerieslist__placeholderIcon fa fa-video-camera"></i>
 
             <span ng-if="vm.paneManager.hasVideoBeenViewed($video.id)" class="wvSerieslist__badge--{{vm.study.color}} mr40 mb40">
                 <i class="fa fa-eye" aria-hidden="true"></i>
@@ -101,7 +101,7 @@
             ng-if="vm.displayMode === 'list'"
             class="wvSerieslist__information"
         >
-            <span class="wvSerieslist__label mn">{{$video.tags.SeriesDescription || ("COMPONENTS.SERIES_LIST.UNTITLED_VIDEO" | translate | wvCapitalize)}}</span>
+            <span class="wvSerieslist__label mn">{{$video.tags.SeriesDescription || ("COMPONENTS.SERIES_LIST.UNTITLED_VIDEO" | translate )}}</span>
         </div>
     <li
         class="wvSerieslist__seriesItem"
@@ -127,7 +127,7 @@
 
         bs-tooltip
         bs-enabled="vm.displayMode !== 'list' && !vm.window.USER_IS_TOUCHING"
-        data-title="{{$series.tags.SeriesDescription || ('COMPONENTS.SERIES_LIST.UNTITLED_SERIES' | translate | wvCapitalize)}}"
+        data-title="{{$series.tags.SeriesDescription || ('COMPONENTS.SERIES_LIST.UNTITLED_SERIES' | translate )}}"
         placement="right"
     >
         <div
@@ -151,7 +151,7 @@
             ng-if="vm.displayMode === 'list'"
             class="wvSerieslist__information"
         >
-            <p class="wvSerieslist__label mn">{{$series.tags.SeriesDescription || ('COMPONENTS.SERIES_LIST.UNTITLED_SERIES' | translate | wvCapitalize)}}</p>
+            <p class="wvSerieslist__label mn">{{$series.tags.SeriesDescription || ('COMPONENTS.SERIES_LIST.UNTITLED_SERIES' | translate )}}</p>
             <!-- @todo reintegrate hotspots (it triggers recursive $digest atm!)
             <wvp-hotspotlist wvp-serie-id="$series.id"></wvp-hotspotlist> -->
         </div>

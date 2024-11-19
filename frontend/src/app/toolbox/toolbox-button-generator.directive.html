@@ -3,9 +3,9 @@
     <label
         ng-switch-when="combinedTool"
         ng-if="vm.toolbox.buttons.hasOwnProperty('combinedTool')"
-        class="wvButton--underline glyphicon glyphicon-hand-up"
+        class="wvButton--underline fa fa-hand-paper"
         ng-class="{active: vm.toolbox.tool === 'combinedTool', 'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
-        data-title="{{ 'COMPONENTS.TOOLBOX.COMBINED_TOOL' | translate | wvCapitalize }}"
+        data-title="{{ 'COMPONENTS.TOOLBOX.COMBINED_TOOL' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         bs-tooltip
@@ -28,8 +28,8 @@
     <label
         ng-switch-when="invert"
         ng-if="vm.toolbox.buttons.hasOwnProperty('invert')"
-        class="wvButton--underline glyphicon glyphicon-adjust"
-        data-title="{{ 'COMPONENTS.TOOLBOX.INVERT_COLOR' | translate | wvCapitalize }}"
+        class="wvButton--underline fa fa-adjust"
+        data-title="{{ 'COMPONENTS.TOOLBOX.INVERT_COLOR' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         ng-class="{'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
@@ -43,9 +43,9 @@
     <label
         ng-switch-when="zoom"
         ng-if="vm.toolbox.buttons.hasOwnProperty('zoom')"
-        class="wvButton--underline glyphicon glyphicon-search"
+        class="wvButton--underline fa fa-search-plus"
         ng-class="{active: vm.toolbox.tool === 'zoom', 'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
-        data-title="{{ 'COMPONENTS.TOOLBOX.ZOOM' | translate | wvCapitalize }}"
+        data-title="{{ 'COMPONENTS.TOOLBOX.ZOOM' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         bs-tooltip bs-enabled="!vm.window.USER_IS_TOUCHING"
@@ -57,9 +57,9 @@
     <label
         ng-switch-when="pan"
         ng-if="vm.toolbox.buttons.hasOwnProperty('pan')"
-        class="wvButton--underline glyphicon glyphicon-move"
+        class="wvButton--underline fa fa-arrows-alt"
         ng-class="{active: vm.toolbox.tool === 'pan', 'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
-        data-title="{{ 'COMPONENTS.TOOLBOX.PANNING' | translate | wvCapitalize }}"
+        data-title="{{ 'COMPONENTS.TOOLBOX.PANNING' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         bs-tooltip bs-enabled="!vm.window.USER_IS_TOUCHING"
@@ -95,9 +95,9 @@
     <label
         ng-switch-when="lengthMeasure"
         ng-if="vm.toolbox.buttons.hasOwnProperty('lengthMeasure')"
-        class="wvButton--underline glyphicon glyphicon-resize-horizontal"
+        class="wvButton--underline fa fa-arrows-alt-h"
         ng-class="{active: vm.toolbox.tool === 'lengthMeasure', 'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
-        data-title="{{ 'COMPONENTS.TOOLBOX.LENGTH_MEASUREMENT' | translate | wvCapitalize }}"
+        data-title="{{ 'COMPONENTS.TOOLBOX.LENGTH_MEASUREMENT' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         bs-tooltip bs-enabled="!vm.window.USER_IS_TOUCHING"
@@ -109,9 +109,9 @@
     <label
         ng-switch-when="simpleAngleMeasure"
         ng-if="vm.toolbox.buttons.hasOwnProperty('simpleAngleMeasure')"
-        class="wvButton--underline glyphicon glyphicon-chevron-left"
+        class="wvButton--underline fa fa-angle-left"
         ng-class="{active: vm.toolbox.tool === 'simpleAngleMeasure', 'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
-        data-title="{{ 'COMPONENTS.TOOLBOX.SIMPLE_ANGLE_MEASUREMENT' | translate | wvCapitalize }}"
+        data-title="{{ 'COMPONENTS.TOOLBOX.SIMPLE_ANGLE_MEASUREMENT' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         bs-tooltip bs-enabled="!vm.window.USER_IS_TOUCHING"
@@ -125,7 +125,7 @@
         ng-if="vm.toolbox.buttons.hasOwnProperty('angleMeasure')"
         class="wvButton--underline"
         ng-class="{active: vm.toolbox.tool === 'angleMeasure', 'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
-        data-title="{{ 'COMPONENTS.TOOLBOX.ANGLE_MEASUREMENT' | translate | wvCapitalize }}"
+        data-title="{{ 'COMPONENTS.TOOLBOX.ANGLE_MEASUREMENT' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         bs-tooltip bs-enabled="!vm.window.USER_IS_TOUCHING"
@@ -140,12 +140,12 @@
         ng-if="vm.toolbox.buttons.hasOwnProperty('pixelProbe')"
         class="wvButton--underline"
         ng-class="{active: vm.toolbox.tool === 'pixelProbe', 'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
-        data-title="{{ 'COMPONENTS.TOOLBOX.PIXEL_PROBE' | translate | wvCapitalize }}"
+        data-title="{{ 'COMPONENTS.TOOLBOX.PIXEL_PROBE' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         bs-tooltip bs-enabled="!vm.window.USER_IS_TOUCHING"
         >
-        <i class="far fa-dot-circle"></i>
+        <i class="fa fa-dot-circle"></i>
         <input id="toolbox-pixel-probe-button" type="radio" ng-disabled="vm.toolbox.readonly" ng-model="vm.toolbox.tool" value="pixelProbe" style="position: absolute; left:0; top:0; bottom:2px; right:0; opacity:0;"/>
     </label>
 
@@ -155,12 +155,12 @@
         ng-if="vm.toolbox.buttons.hasOwnProperty('ellipticalRoi')"
         class="wvButton--underline"
         ng-class="{active: vm.toolbox.tool === 'ellipticalRoi', 'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
-        data-title="{{ 'COMPONENTS.TOOLBOX.ELLIPTICAL_ROI' | translate | wvCapitalize }}"
+        data-title="{{ 'COMPONENTS.TOOLBOX.ELLIPTICAL_ROI' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         bs-tooltip bs-enabled="!vm.window.USER_IS_TOUCHING"
         >
-        <i class="far fa-circle"></i>
+        <i class="fa fa-circle"></i>
         <input id="toolbox-elliptical-roi-button" type="radio" ng-disabled="vm.toolbox.readonly" ng-model="vm.toolbox.tool" value="ellipticalRoi" style="position: absolute; left:0; top:0; bottom:2px; right:0; opacity:0;"/>
     </label>
 
@@ -170,12 +170,12 @@
         ng-if="vm.toolbox.buttons.hasOwnProperty('rectangleRoi')"
         class="wvButton--underline"
         ng-class="{active: vm.toolbox.tool === 'rectangleRoi', 'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
-        data-title="{{ 'COMPONENTS.TOOLBOX.RECTANGLE_ROI' | translate | wvCapitalize }}"
+        data-title="{{ 'COMPONENTS.TOOLBOX.RECTANGLE_ROI' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         bs-tooltip bs-enabled="!vm.window.USER_IS_TOUCHING"
         >
-        <i class="far fa-square"></i>
+        <i class="fa fa-expand"></i>
         <input id="toolbox-rectangle-roi-button" type="radio" ng-disabled="vm.toolbox.readonly" ng-model="vm.toolbox.tool" value="rectangleRoi" style="position: absolute; left:0; top:0; bottom:2px; right:0; opacity:0;"/>
     </label>
 
@@ -185,7 +185,7 @@
         ng-if="vm.toolbox.buttons.hasOwnProperty('arrowAnnotate')"
         class="wvButton--underline"
         ng-class="{active: vm.toolbox.tool === 'arrowAnnotate', 'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
-        data-title="{{ 'COMPONENTS.TOOLBOX.ARROW_ANNOTATE_TEXT' | translate | wvCapitalize }}"
+        data-title="{{ 'COMPONENTS.TOOLBOX.ARROW_ANNOTATE_TEXT' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         bs-tooltip bs-enabled="!vm.window.USER_IS_TOUCHING"
@@ -199,7 +199,7 @@
         ng-switch-when="rotateLeft"
         ng-if="vm.toolbox.buttons.hasOwnProperty('rotateLeft')"
         class="wvButton--underline"
-        data-title="{{ 'COMPONENTS.TOOLBOX.ROTATE_LEFT' | translate | wvCapitalize }}"
+        data-title="{{ 'COMPONENTS.TOOLBOX.ROTATE_LEFT' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         ng-class="{'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
@@ -214,7 +214,7 @@
         ng-switch-when="rotateRight"
         ng-if="vm.toolbox.buttons.hasOwnProperty('rotateRight')"
         class="wvButton--underline"
-        data-title="{{ 'COMPONENTS.TOOLBOX.ROTATE_RIGHT' | translate | wvCapitalize }}"
+        data-title="{{ 'COMPONENTS.TOOLBOX.ROTATE_RIGHT' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         ng-class="{'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
@@ -229,7 +229,7 @@
         ng-switch-when="previousSeries"
         ng-if="vm.toolbox.buttons.hasOwnProperty('previousSeries')"
         class="wvButton--underline"
-        data-title="{{ 'COMPONENTS.TOOLBOX.PREVIOUS_SERIES' | translate | wvCapitalize }}"
+        data-title="{{ 'COMPONENTS.TOOLBOX.PREVIOUS_SERIES' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         ng-class="{'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
@@ -244,7 +244,7 @@
         ng-switch-when="nextSeries"
         ng-if="vm.toolbox.buttons.hasOwnProperty('nextSeries')"
         class="wvButton--underline"
-        data-title="{{ 'COMPONENTS.TOOLBOX.NEXT_SERIES' | translate | wvCapitalize }}"
+        data-title="{{ 'COMPONENTS.TOOLBOX.NEXT_SERIES' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         ng-class="{'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
@@ -259,7 +259,7 @@
         ng-switch-when="hflip"
         ng-if="vm.toolbox.buttons.hasOwnProperty('hflip')"
         class="wvButton--underline"
-        data-title="{{ 'COMPONENTS.TOOLBOX.FLIP_HORIZONTALLY' | translate | wvCapitalize }}"
+        data-title="{{ 'COMPONENTS.TOOLBOX.FLIP_HORIZONTALLY' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         ng-class="{'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
@@ -274,7 +274,7 @@
         ng-switch-when="vflip"
         ng-if="vm.toolbox.buttons.hasOwnProperty('vflip')"
         class="wvButton--underline"
-        data-title="{{ 'COMPONENTS.TOOLBOX.FLIP_VERTICALLY' | translate | wvCapitalize }}"
+        data-title="{{ 'COMPONENTS.TOOLBOX.FLIP_VERTICALLY' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         ng-class="{'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
@@ -290,7 +290,7 @@
         ng-if="vm.toolbox.buttons.hasOwnProperty('toggleSynchro')"
         class="wvButton--underline"
         ng-class="{'active': vm.toolbox.wvSynchronizer.isEnabled(), 'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
-        data-title="{{ 'COMPONENTS.TOOLBOX.SYNCHRONIZED_BROWSING' | translate | wvCapitalize }}"
+        data-title="{{ 'COMPONENTS.TOOLBOX.SYNCHRONIZED_BROWSING' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         bs-tooltip bs-enabled="!vm.window.USER_IS_TOUCHING"
@@ -305,7 +305,7 @@
         ng-if="vm.toolbox.buttons.hasOwnProperty('toggleReferenceLines')"
         class="wvButton--underline"
         ng-class="{'active': vm.toolbox.wvReferenceLines.isEnabled(), 'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
-        data-title="{{ 'COMPONENTS.TOOLBOX.REFERENCE_LINES' | translate | wvCapitalize }}"
+        data-title="{{ 'COMPONENTS.TOOLBOX.REFERENCE_LINES' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         bs-tooltip bs-enabled="!vm.window.USER_IS_TOUCHING"
@@ -320,12 +320,12 @@
         ng-if="vm.toolbox.buttons.hasOwnProperty('crossHair')"
         class="wvButton--underline"
         ng-class="{active: vm.toolbox.tool === 'crossHair', 'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
-        data-title="{{ 'COMPONENTS.TOOLBOX.CROSS_HAIR' | translate | wvCapitalize }}"
+        data-title="{{ 'COMPONENTS.TOOLBOX.CROSS_HAIR' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         bs-tooltip bs-enabled="!vm.window.USER_IS_TOUCHING"
         >
-        <i class="fas fa-crosshairs"></i>
+        <i class="fa fa-crosshairs"></i>
         <input id="toolbox-crossHair-button" type="radio" ng-disabled="vm.toolbox.readonly" ng-model="vm.toolbox.tool" value="crossHair" style="position: absolute; left:0; top:0; bottom:2px; right:0; opacity:0;"/>
     </label>
 
@@ -335,7 +335,7 @@
         ng-if="vm.toolbox.buttons.hasOwnProperty('toggleOverlayText')"
         class="wvButton--underline"
         ng-class="{'active': vm.toolbox.wvViewerController.isOverlayTextVisible(), 'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
-        data-title="{{ 'COMPONENTS.TOOLBOX.TOGGLE_LAYOUT_TEXT' | translate | wvCapitalize }}"
+        data-title="{{ 'COMPONENTS.TOOLBOX.TOGGLE_LAYOUT_TEXT' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         bs-tooltip bs-enabled="!vm.window.USER_IS_TOUCHING"
@@ -350,7 +350,7 @@
         ng-if="vm.toolbox.buttons.hasOwnProperty('toggleOverlayIcons')"
         class="wvButton--underline"
         ng-class="{'active': vm.toolbox.wvViewerController.isOverlayIconsVisible(), 'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
-        data-title="{{ 'COMPONENTS.TOOLBOX.TOGGLE_LAYOUT_ICONS' | translate | wvCapitalize }}"
+        data-title="{{ 'COMPONENTS.TOOLBOX.TOGGLE_LAYOUT_ICONS' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         bs-tooltip bs-enabled="!vm.window.USER_IS_TOUCHING"
@@ -363,8 +363,8 @@
     <label
         ng-switch-when="print"
         ng-if="vm.toolbox.buttons.hasOwnProperty('print')"
-        class="wvButton--underline glyphicon glyphicon-print"
-        data-title="{{ 'COMPONENTS.TOOLBOX.PRINT' | translate | wvCapitalize }}"
+        class="wvButton--underline fa fa-print"
+        data-title="{{ 'COMPONENTS.TOOLBOX.PRINT' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         ng-class="{'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
@@ -378,7 +378,7 @@
         ng-switch-when="downloadAsJpeg"
         ng-if="vm.toolbox.buttons.hasOwnProperty('downloadAsJpeg')"
         class="wvButton--underline"
-        data-title="{{ 'COMPONENTS.TOOLBOX.DOWNLOAD_AS_JPEG' | translate | wvCapitalize }}"
+        data-title="{{ 'COMPONENTS.TOOLBOX.DOWNLOAD_AS_JPEG' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         ng-class="{'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
@@ -403,7 +403,7 @@
         ng-switch-when="showInfoPopup"
         ng-if="vm.toolbox.buttons.hasOwnProperty('showInfoPopup')"
         class="wvButton--underline"
-        data-title="{{ 'COMPONENTS.TOOLBOX.SHOW_INFO_POPUP' | translate | wvCapitalize }}"
+        data-title="{{ 'COMPONENTS.TOOLBOX.SHOW_INFO_POPUP' | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         ng-class="{'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"
@@ -418,7 +418,7 @@
         ng-switch-when="customCommand"
         ng-if="vm.toolbox.buttons.hasOwnProperty('customCommand')"
         class="wvButton--underline"
-        data-title="{{ vm.toolbox.customCommandIconLabel | wvCapitalize}}"
+        data-title="{{ vm.toolbox.customCommandIconLabel | translate }}"
         data-placement="{{ vm.toolbox.position === 'top' ? 'bottom':'left' }}"
         data-container="body"
         ng-class="{'wvLargeButton': vm.toolbox.buttonsSize == 'large'}"

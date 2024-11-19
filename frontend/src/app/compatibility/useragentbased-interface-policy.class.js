@@ -14,8 +14,9 @@
         var userInterfacePolicy;
         var uaParser = new UAParser();
         // Mobile
-        if (uaParser.getDevice().type === 'mobile') {
-            userInterfacePolicy = new osimis.MobileInterfacePolicy();
+        if ((uaParser.getDevice().type === 'mobile') && (uaParser.getOS().name.indexOf('iOS') === -1)) {
+            // userInterfacePolicy = new osimis.MobileInterfacePolicy();
+            userInterfacePolicy = new osimis.DesktopInterfacePolicy();
         }
         // Desktop & tablet
         else {

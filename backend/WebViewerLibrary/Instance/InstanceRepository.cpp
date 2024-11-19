@@ -137,6 +137,8 @@ Json::Value InstanceRepository::SimplifyInstanceTags(const Json::Value& instance
   tagsToKeep.push_back("FrameOfReferenceUID");
   tagsToKeep.push_back("HighBit");
   tagsToKeep.push_back("InstanceNumber");
+  // used by the JS code in frontend/src/app/overlay/overlay.directive.js to display patient IDx - Ludwig
+  tagsToKeep.push_back("PatientComments");
 
   // used by the C++ code
   tagsToKeep.push_back("Modality");

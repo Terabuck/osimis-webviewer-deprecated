@@ -2,32 +2,36 @@
     cursor: pointer;
 }
 .wv-loadingbar-not-loaded {
-    fill: rgba(255, 255, 255, 0.1);
+    fill: #ffffff1a;
 }
-.wv-loadingbar-not-loaded, .wv-loadingbar-LOW-quality {
+.wv-loadingbar-not-loaded,
+.wv-loadingbar-LOW-quality {
     transition: none;
 }
 .wv-loadingbar-not-loaded:hover {
-    fill: rgba(255, 255, 255, 0.2);
+    fill: #ffffff33;
 }
-.wv-loadingbar-LOSSLESS-quality, .wv-loadingbar-PIXELDATA-quality {
-    fill:rgba(0, 255, 0, 0.7);
+.wv-loadingbar-LOSSLESS-quality,
+.wv-loadingbar-PIXELDATA-quality {
+    fill: #03aa034f;
 }
 .wv-loadingbar-LOSSLESS-quality:hover,
 .wv-loadingbar-LOSSLESS-quality.wv-loadingbar-active,
 .wv-loadingbar-PIXELDATA-quality:hover,
 .wv-loadingbar-PIXELDATA-quality.wv-loadingbar-active {
-    fill:rgba(0, 255, 0, 1);
+    fill: #03930324;
 }
 .wv-loadingbar-LOW-quality {
-    fill:rgba(255, 0, 0, 0.7);
+    fill: #db03034f;
 }
-.wv-loadingbar-LOW-quality:hover, .wv-loadingbar-LOW-quality.wv-loadingbar-active {
-    fill:rgba(255, 0, 0, 1);
+.wv-loadingbar-LOW-quality:hover,
+.wv-loadingbar-LOW-quality.wv-loadingbar-active {
+    fill: #db030385;
 }
 .wv-loadingbar-MEDIUM-quality {
-    fill:rgba(255, 95, 0, 0.7);
+    fill: #db52034f;
 }
-.wv-loadingbar-MEDIUM-quality:hover, .wv-loadingbar-MEDIUM-quality.wv-loadingbar-active {
-    fill:rgba(255, 95, 0, 1);
+.wv-loadingbar-MEDIUM-quality:hover,
+.wv-loadingbar-MEDIUM-quality.wv-loadingbar-active {
+    fill: #f15e0385;
 }

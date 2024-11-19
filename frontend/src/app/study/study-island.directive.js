@@ -100,7 +100,6 @@
                     .then(function(study) {
                         vm.isLoading = false;
                         vm.study = study;
-                        vm.study.tags.StudyDescription = escape(vm.study.tags.StudyDescription);
                     });
             });
         }

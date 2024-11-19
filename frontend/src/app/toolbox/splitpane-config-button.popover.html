@@ -14,7 +14,7 @@
                 1x1 icon.
                 -->
                 <label
-                    class="wvToolbar__splitpaneConfigButton glyphicon glyphicon-stop"
+                    class="wvToolbar__splitpaneConfigButton fa fa-times"
                     ng-class="{wvLargeButton: vm.buttonSize === 'large'}"
                 >
                     <input
@@ -31,7 +31,7 @@
                 2x1 icon.
                 -->
                 <label
-                    class="wvToolbar__splitpaneConfigButton glyphicon glyphicon-pause"
+                    class="wvToolbar__splitpaneConfigButton fa fa-pause"
                     ng-class="{wvLargeButton: vm.buttonSize === 'large'}"
                 >
                     <input
@@ -48,7 +48,7 @@
                 1x2 icon.
                 -->
                 <label
-                    class="wvToolbar__splitpaneConfigButton--rotate glyphicon glyphicon-pause"
+                    class="wvToolbar__splitpaneConfigButton--rotate fa fa-pause"
                     ng-class="{wvLargeButton: vm.buttonSize === 'large'}"
                 >
                     <input
@@ -75,6 +75,22 @@
                         ng-disabled="vm.readonly"
                         ng-model="vm.splitpaneLayout"
                         ng-value="{x: 2, y: 2}"
+                    />
+                </label>
+                <!--
+                4x1 icon.
+                -->
+                <label
+                    class="wvToolbar__splitpaneConfigButton fa fa-vertbars"
+                    ng-class="{wvLargeButton: vm.buttonSize === 'large'}"
+                >
+                    <input
+                        class="wvToolbar__splitpaneConfigButtonInput"
+                        type="radio"
+
+                        ng-disabled="vm.readonly"
+                        ng-model="vm.splitpaneLayout"
+                        ng-value="{x: 4, y: 1}"
                     />
                 </label>
               </div>

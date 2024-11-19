@@ -544,15 +544,12 @@ function renderColorImage(enabledElement, invalidated) {
   context.fillRect(0, 0, enabledElement.canvas.width, enabledElement.canvas.height);
 
   // Turn off image smooth/interpolation if pixelReplication is set in the viewport
-  var smoothEnabled = true;
   if (enabledElement.viewport.pixelReplication === true) {
-    smoothEnabled = false;
-  }
-
-  if (context.imageSmoothingEnabled !== undefined) {
-    context.imageSmoothingEnabled = smoothEnabled;
-  } else { // Old firefox may not support it
-    context.mozImageSmoothingEnabled = smoothEnabled;
+    context.imageSmoothingEnabled = false;
+    context.mozImageSmoothingEnabled = false; // Firefox doesn't support imageSmoothingEnabled yet
+  } else {
+    context.imageSmoothingEnabled = true;
+    context.mozImageSmoothingEnabled = true;
   }
 
   // Save the canvas context state and apply the viewport properties
@@ -606,15 +603,12 @@ function addColorLayer(layer, invalidated) {
 
   var context = layer.canvas.getContext('2d');
 
-  var smoothEnabled = true;
   if (layer.viewport.pixelReplication === true) {
-    smoothEnabled = false;
-  }
-
-  if (context.imageSmoothingEnabled !== undefined) {
-    context.imageSmoothingEnabled = smoothEnabled;
-  } else { // Old firefox may not support it
-    context.mozImageSmoothingEnabled = smoothEnabled;
+    context.imageSmoothingEnabled = false;
+    context.mozImageSmoothingEnabled = false;
+  } else {
+    context.imageSmoothingEnabled = true;
+    context.mozImageSmoothingEnabled = true;
   }
 
   var lastRenderedViewport = {
@@ -905,15 +899,12 @@ function renderGrayscaleImage(enabledElement, invalidated) {
   context.fillRect(0, 0, enabledElement.canvas.width, enabledElement.canvas.height);
 
   // Turn off image smooth/interpolation if pixelReplication is set in the viewport
-  var smoothEnabled = true;
   if (enabledElement.viewport.pixelReplication === true) {
-    smoothEnabled = false;
-  }
-
-  if (context.imageSmoothingEnabled !== undefined) {
-    context.imageSmoothingEnabled = smoothEnabled;
-  } else { // Old firefox may not support it
-    context.mozImageSmoothingEnabled = smoothEnabled;
+    context.imageSmoothingEnabled = false;
+    context.mozImageSmoothingEnabled = false; // Firefox doesn't support imageSmoothingEnabled yet
+  } else {
+    context.imageSmoothingEnabled = true;
+    context.mozImageSmoothingEnabled = true;
   }
 
   // Save the canvas context state and apply the viewport properties
@@ -975,17 +966,13 @@ function addGrayscaleLayer(layer, invalidated) {
 
   var context = layer.canvas.getContext('2d');
 
-  var smoothEnabled = true;
   if (layer.viewport.pixelReplication === true) {
-    smoothEnabled = false;
+    context.imageSmoothingEnabled = false;
+    context.mozImageSmoothingEnabled = false;
+  } else {
+    context.imageSmoothingEnabled = true;
+    context.mozImageSmoothingEnabled = true;
   }
-
-  if (context.imageSmoothingEnabled !== undefined) {
-    context.imageSmoothingEnabled = smoothEnabled;
-  } else { // Old firefox may not support it
-    context.mozImageSmoothingEnabled = smoothEnabled;
-  }
-
 
   var lastRenderedViewport = {
     windowCenter: layer.viewport.voi.windowCenter,
@@ -2334,15 +2321,12 @@ function renderWebImage(enabledElement, invalidated) {
   context.fillRect(0, 0, enabledElement.canvas.width, enabledElement.canvas.height);
 
   // Turn off image smooth/interpolation if pixelReplication is set in the viewport
-  var smoothEnabled = true;
   if (enabledElement.viewport.pixelReplication === true) {
-    smoothEnabled = false;
-  }
-
-  if (context.imageSmoothingEnabled !== undefined) {
-    context.imageSmoothingEnabled = smoothEnabled;
-  } else { // Old firefox may not support it
-    context.mozImageSmoothingEnabled = smoothEnabled;
+    context.imageSmoothingEnabled = false;
+    context.mozImageSmoothingEnabled = false; // Firefox doesn't support imageSmoothingEnabled yet
+  } else {
+    context.imageSmoothingEnabled = true;
+    context.mozImageSmoothingEnabled = true;
   }
 
   // Save the canvas context state and apply the viewport properties

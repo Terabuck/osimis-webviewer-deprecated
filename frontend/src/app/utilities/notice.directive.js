@@ -10,11 +10,11 @@
  * closed the notice once, the choice is saved in a cookie. Thus, this callback
  * is also called at the directive initialization each time the notice is
  * displayed, but the cookie has already been set / the notice has already been
- * closed once. This is therefore important to rely on the `ngIf` directive to
+ * closed once. This is therefore important to rely on the `ngIf` directive to 
  * hide/show the notice. The `ngShow` won't trigger the callback, and this
  * callback is used to hide the bottom zone. Therefore, using `ngShow`, the
  * notice won't be shown, but the bottom zone still will (although empty).
- *
+ * 
  * @scope
  * @restrict E
  *
@@ -56,8 +56,8 @@
         // When close button is clicked on by the user
         this.close = function() {
             // Always skip the notice from now on.
-            _this.skip = true;
-            $cookies.put('skipNotice', _this.skip, {'samesite': 'lax'});
+            //_this.skip = true;
+            //$cookies.put('skipNotice', _this.skip);
 
             // Trigger onClose callback
             this.onClosed();
@@ -67,9 +67,9 @@
         // cookie. This is done that way since the callback closes the bottom
         // zone as well, but it's not up to the notice to directly control
         // that. Thus, we use a callback instead.
-        this.skip = ($cookies.get('skipNotice') == 'true') || false;
-        if (this.skip) {
-            this.close();
-        }
+        //this.skip = ($cookies.get('skipNotice') == 'true') || false;
+        //if (this.skip) {
+        //    this.close();
+        // }
     }
 })();

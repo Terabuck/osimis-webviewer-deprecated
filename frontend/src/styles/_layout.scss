@@ -1,32 +1,21 @@
 $topHeight: 42px;
-$bottomHeightSmall: 7rem; // On small width, we provide two-lines bottom zone to compensate the smaller width
-$bottomHeightLarge: 5rem; // On large width, we provide one-line bottom zone
-
-$asideWidth: 32rem;
-$asideMinifyWidth: 12rem;
-
-$asideRightMinifyWidth: 85px; // eq. 7.5rem * 12px - ( $asideRightPadding / 2 )
+$bottomHeightSmall: 17.5rem;
+$bottomHeightLarge: 25.8rem;
+$asideWidth: 24.2rem;
+$asideMinifyWidth: 11.6rem;
+$asideRightMinifyWidth: 85px;
 $asideRightPadding: 10px;
-
-/* layout: left section */
-
-// Adapt left aside based on state (opened/closed).
 .wvLayoutLeft {
-    // Set general properties.
-    position:absolute;
-    z-index:2;
-    background-color:black;
+    position: absolute;
+    z-index: 2;
+    background-color: #2c2c2c;
     width: $asideWidth;
-
-    // Position the left side below the top zone if it is shown
     &.wvLayoutLeft--toppadding {
         top: $topHeight;
     }
     &:not(.wvLayoutLeft--toppadding) {
         top: 0;
     }
-
-    // Position the left section over the bottom one if the latter is shown
     &.wvLayoutLeft--bottompadding {
         @media screen and (max-device-width: 374px) {
             bottom: $bottomHeightSmall;
@@ -38,100 +27,67 @@ $asideRightPadding: 10px;
     &:not(.wvLayoutLeft--bottompadding) {
         bottom: 0;
     }
-
-    // Position the left side on the left
     left: 0;
-
-    // When layout left is shown, nothing special happens (default state)
     &:not(.wvLayoutLeft--closed) {
     }
-
-    // When layout left is closed, move it aside
     &.wvLayoutLeft--closed {
-        transform: translateX(- $asideWidth); // Move all out of the screen
+        transform: translateX(-$asideWidth);
         &.wvLayoutLeft--small {
             transform: translateX(-$asideMinifyWidth);
         }
     }
-    &.wvLayoutLeft--small{
+    &.wvLayoutLeft--small {
         width: $asideMinifyWidth;
-        & .wvLayoutLeft__contentTop, & .wvLayoutLeft__contentMiddle, & .wvLayoutLeft__contentBottom{
-            width: 100%;
+        & .wvLayoutLeft__contentTop,
+        & .wvLayoutLeft__contentMiddle,
+        & .wvLayoutLeft__contentBottom {
+            width: 84%;
         }
     }
 }
-
-// Layout-Left Flexbox containers for the content.
 .wvLayoutLeft__content {
-    border-right: 1px solid #AAA;
-
-    // Display flex mode so optional actions can be positionned at the bottom
-    // side.
+    border-right: 1px solid #009542;
     flex: 1;
     display: flex;
     flex-direction: column;
-
-    // Make it scrollable.
     overflow-y: auto;
     height: 100%;
 }
-
 .wvLayoutLeft__contentTop {
-    // We have to set a static height since we use floating to make white space
-    // disapear in nested content.
-    // note: could be deactivate with the clearfix so we can have a dynamic height
-    // max-height: 6rem;
-    padding: 0rem 1rem 0rem 1rem;
-
-    // Enforce width even if there is a scrollbar on win/IE11 (-1 px for
-    // border).
-    width: $asideWidth - 0.1rem;
-
-    &:after{
+    padding: 0 0.2rem 0 0.2rem;
+    width: $asideWidth - 2.1rem;
+    &:after {
         content: "";
-        display:block;
-        height:0;
-        width:0;
-        clear:both;
+        display: block;
+        height: 0;
+        width: 0;
+        clear: both;
     }
 }
-
 .wvLayoutLeft__contentMiddle {
-    // Let the middle zone take as much space as required.
     flex: 1 0 auto;
-
-    // Enforce width even if there is a scrollbar on win/IE11 (-1 px for
-    // border).
-    width: $asideWidth - 0.1rem;
-
+    width: $asideWidth - 2.1rem;
 }
-
 .wvLayoutLeft__contentBottom {
-    // Enforce width even if there is a scrollbar on win/IE11 (-1 px for
-    // border).
-    width: $asideWidth - 0.1rem;
+    width: $asideWidth - 0.2rem;
 }
 .wvLayout__leftBottom.wvLayout__leftBottom--enabled {
     border-top: 1px solid hsla(0, 0%, 100%, 0.2);
     margin-top: 1rem;
     padding: 1rem;
-
-    // Prevent from taking more space than intended.
-    // flex-grow: 0;
 }
-
 .wvLayoutLeft__actions,
 %wvLayoutLeft__actions{
     display:block;
     position:absolute;
-    right:1px; // border
+    right:1px;
     top: 50%;
     transform: translateY(-50%);
-    width:25px;
+    width:20px;
 }
 .wvLayoutLeft__actions--outside{
     @extend.wvLayoutLeft__actions;
-    right:-25px; // width + border
+    right:-20px;
 }
 .wvLayoutLeft__action{
     background-color:$primary;
@@ -142,27 +98,18 @@ $asideRightPadding: 10px;
         opacity: 1;
     }
 }
-
-
-/* layout: right section */
-
-// Adapt right aside based on state (opened/closed).
 .wvLayout__right {
-    display:block;
-    position:absolute;
-    z-index:2;
-    background-color:black;
+    display: block;
+    position: absolute;
+    z-index: 2;
+    background-color: #2c2c2c;
     width: $asideRightMinifyWidth;
-
-    // Position the left side below the top zone if it is shown
     &.wvLayout__right--toppadding {
         top: $topHeight;
     }
     &:not(.wvLayout__right--toppadding) {
         top: 0;
     }
-
-    // Position the right section over the bottom one if the latter is shown
     &.wvLayout__right--bottompadding {
         @media screen and (max-device-width: 374px) {
             bottom: $bottomHeightSmall;
@@ -174,55 +121,39 @@ $asideRightPadding: 10px;
     &:not(.wvLayout__right--bottompadding) {
         bottom: 0;
     }
-
-    // Position the right side on the right
     right: 0;
-
-    // When layout right is shown, nothing special happens (default state)
     &:not(.wvLayout__right--closed) {
     }
-
-    // When layout right is closed, move it aside
     &.wvLayout__right--closed {
-        transform: translateX(+ $asideRightMinifyWidth); // Move all out of the screen
+        transform: translateX(+ $asideRightMinifyWidth);
     }
-
-    // Set childrens to full height (so border-left appears at 100% height)
     & > wv-layout-right,
-    & > wv-layout-right > .wvViewer__asideRight
-    {
+    & > wv-layout-right > .wvViewer__asideRight {
         display: block;
         height: 100%;
         width: 100%;
     }
 }
-
 .wvAsideRight__content {
     height: 100%;
     float: left;
-
-    border-left: 1px solid #AAA;
-
+    border-left: 1px solid #aaa;
     padding: 0 $asideRightPadding/2;
-    width: $asideWidth;
+    width: $asideWidth - 0.2rem;
 }
-
 .wvAsideRight__actions,
-%wvAsideRight__actions{
-    display:block;
-    position:absolute;
-    left:1px; // border
+%wvAsideRight__actions {
+    display: block;
+    position: absolute;
+    left: 1px;
     top: 50%;
     transform: translateY(-50%);
-    width:25px;
-
-    // Compensate aside z-index to let user click on button when another button
-    // is behind the actions.
+    width: 20px;
     z-index: 3;
 }
 .wvAsideRight__actions--outside{
     @extend.wvAsideRight__actions;
-    left:-25px; // width + border
+    left:-20px;
 }
 .wvAsideRight__action{
     background-color:$primary;
@@ -233,50 +164,41 @@ $asideRightPadding: 10px;
         opacity: 1;
     }
 }
-.wvAsideRight__fixOpenFullyTooltip + .tooltip { // Fix the "open fully" bad tooltip placement of the asideRight
+.wvAsideRight__fixOpenFullyTooltip + .tooltip {
     left: -6.633em !important;
     top: 1px !important;
 }
 
-
-/* layout: bottom section */
-
-// Set bottom section size & position
 .wvLayout__bottom {
-    position: absolute;
-
-    // Display the bottom bar in the bottom side
-    @media screen and (max-device-width: 374px) {
-        height: $bottomHeightSmall;
-    }
-    @media screen and (min-device-width: 375px) {
-        height: $bottomHeightLarge;
-    }
-
+    height: 0;
+    visibility: hidden;
     left: 0;
     bottom: 0;
     right: 0;
+    background-color: #1a1a1a;
 
-    // Set grey background color (as it is only used to display notices)
-    background-color: hsl(0, 0%, 10%);
+    @media screen and (orientation: portrait) and (max-device-width: 374px) {
+        height: $bottomHeightSmall;
+        position: fixed;
+        z-index: 0;
+        visibility: visible;
+    }
+
+    @media screen and (orientation: portrait) and (min-device-width: 375px) {
+        height: $bottomHeightLarge;
+        position: fixed;
+        z-index: 0;
+        visibility: visible;
+        overflow: auto;
+    }
 }
-
-
-/* layout: main section */
-
-// Set main section size & position
 .wvLayout__main {
     position: absolute;
-
-    // Align content (such as toolbar)
     text-align: center;
-
-    // Position splitpane considering the toolbar when toolbar is present.
     & .wvLayout__splitpane--toolbarAtTop {
         display: block;
         height: calc(100% - #{$toolbarHeight});
         width: 100%;
-
         position: relative;
         top: $toolbarHeight;
     }
@@ -285,12 +207,10 @@ $asideRightPadding: 10px;
         height: 100%;
         width: calc(100% - #{$toolbarHeight});
     }
-
     & .wvLayout__splitpane--bigToolbarAtTop {
         display: block;
         height: calc(100% - 68px);
         width: 100%;
-
         position: relative;
         top: 68px;
     }
@@ -299,18 +219,14 @@ $asideRightPadding: 10px;
         height: 100%;
         width: calc(100% - 68px);
     }
-
-    // Position the main section below the top zone if the latter is shown
     &.wvLayout__main--toppadding {
         top: $topHeight;
     }
     &:not(.wvLayout__main--toppadding) {
         top: 0;
     }
-
-    // Position the main section over the bottom one if the latter is shown
     &.wvLayout__main--bottompadding {
-        bottom:440px;
+        bottom: 440px;
         @media screen and (max-device-width: 374px) {
             bottom: $bottomHeightSmall;
         }
@@ -321,111 +237,77 @@ $asideRightPadding: 10px;
     &:not(.wvLayout__main--bottompadding) {
         bottom: 0;
     }
-
-    // Make the main content fill the screen by default
-    // Depending on the browser, the left and right attributes are more
-    // optimized than padding's ones. The reason is that they based upon
-    // absolute positioning. The require no contextual positioning calculation
-    // and are less performance intensive, especially concidering transition
-    // animation.
     right: 0;
     left: 0;
-
-    // transition: 0.6s left ease, 0.6s right ease;
-
-    // Adapt main section's size based on aside left's state (opened/closed)
-    // 1. When aside left is not hidden , move the main section 300 pixel to
-    //   the right
     &.wvLayout__main--leftpadding {
-        left: $asideWidth;
+        left: $asideWidth - 0.4rem;
     }
-    // 2. When aside left is hidden, let the main take 100% of the place
     &:not(.wvLayout__main--leftpadding, .wvLayout__main--smallleftpadding) {
-        left: 0px;
+        left: 0;
     }
     &.wvLayout__main--smallleftpadding {
         left: $asideMinifyWidth;
     }
-
-    // Adapt main section's size based on aside right's state (opened/closed)
-    // 1. When aside right is not hidden , move the main section 84 pixel to
-    //   the left
     &.wvLayout__main--rightpadding {
         right: $asideRightMinifyWidth;
     }
-    // 2. When aside right is hidden, let the main take 100% of the place
     &:not(.wvLayout__main--rightpadding) {
-        right: 0px;
+        right: 0;
     }
 }
-
-/* global */
 .popover {
-    // Set back black as default popover text color
     color: black;
 }
-
-.wvViewer__editor--full{
-    position:absolute;
-    top:0;
-    right:0;
-    z-index:10;
-    opacity:0;
+.wvViewer__editor--full {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    opacity: 0;
     transform: translateX(100%);
-    width:100%;
-    height:100%;
-    background-color:white;
-    color:$text-color;
-    &.opened{
-        opacity:1;
+    width: 100%;
+    height: 100%;
+    background-color: #6c6d6b;
+    color: $text-color;
+    &.opened {
+        opacity: 1;
         transform: translateX(0);
     }
 }
-
-.wvViewer__topBar{
-    width:100%;
-    // margin-top: 0.5rem;
-
-    // Allow user to scroll through the toolbar if screen is too small. Note we
-    // can't use z-index properly to show buttons on top of the viewer, as any
-    // popover will appear behind them (even with higher z-index) due to an
-    // overflow property hidden somewhere.
+.wvViewer__topBar {
+    width: 100%;
     overflow-y: auto;
     white-space: nowrap;
     max-width: 100%;
 }
-.wvViewer__buttonGroup{
-    display:inline-block;
+.wvViewer__buttonGroup {
+    display: inline-block;
 }
-.wvViewer__buttonGroup--asideWidth{
+.wvViewer__buttonGroup--asideWidth {
     width: $asideWidth;
     padding-right: 1rem;
 }
-.wvViewer__buttonGroup--contentWidth{
+.wvViewer__buttonGroup--contentWidth {
     width: calc(100% - #{$asideWidth});
     padding-left: 1rem;
-    max-height: 4.2rem; // Make sure mobile keeps the menubar below a certain size
+    max-height: 4.2rem;
 }
-.wvViewer__iframe{
-    position:absolute;
-    left:0;
-    top:0;
+.wvViewer__iframe {
+    position: absolute;
+    left: 0;
+    top: 0;
 }
-
-/* bottom bar */
 .wvViewer__bottomBar,
-%wvViewer__bottomBar{
-    position:absolute;
-    left:0;
-    bottom:0;
-    width:100%;
-    background-color:#111111;
+%wvViewer__bottomBar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #111111;
 }
-
 .wvViewer__bottomBar--expanded{
     @extend .wvViewer__bottomBar;
-    height: 80px; //total height of the last serieList cell (64 + 10(margin bottom previous item) + item padding bottom +1 border-width (top item)
-    //border-top: 1px solid rgba(255,255,255,0.1);
+    height: 80px;
     color:white;
 
     .wvViewer__timeline{
@@ -449,8 +331,6 @@ $asideRightPadding: 10px;
         opacity:0;
         visibility:hidden;
         z-index:-1;
-        // transition: all 0.3s ease 0.6s; //adding a delay when mouse leave
-        // transition-property: opacity, visibility, z-index;
     }
     &:hover .wvTimeline__hotspot{
         opacity:1;
@@ -459,40 +339,35 @@ $asideRightPadding: 10px;
         transition-delay: 0s;
     }
 }
-
-.wvViewer__timeline{
-    height:24px;
-    //background-color:rgba(1,1,1,0.2);
+.wvViewer__timeline {
+    height: 24px;
     line-height: 24px;
     vertical-align: middle;
-    width:100%;
+    width: 100%;
 }
-
-.wvViewer__trademark{
-    display:inline-block;
-    float:right;
-    width:80px;
-    height:80px;
-    float:right;
+.wvViewer__trademark {
+    display: inline-block;
+    float: right;
+    width: 80px;
+    height: 80px;
+    float: right;
     line-height: 80px;
     vertical-align: middle;
     text-align: center;
 }
-.wvTimeline__action--text{
-
+.wvTimeline__action--text {
 }
-.wvTimeline__input{
+.wvTimeline__input {
     border-radius: 3px;
-    &:focus{
-        outline:none;
+    &:focus {
+        outline: none;
     }
-    margin-top:2px;
+    margin-top: 2px;
     border: 1px solid $border-color;
 }
-
-.wvTimeline__actions{
-    display:inline-block;
+.wvTimeline__actions {
+    display: inline-block;
     border-right: 1px solid $border-color;
 }
-.wvTimeline__wrapper{
+.wvTimeline__wrapper {
 }

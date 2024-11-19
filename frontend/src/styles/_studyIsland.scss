@@ -1,90 +1,72 @@
-$gray: gray;
-$blue: hsla(204, 70%, 53%, 0.7);
-$red: rgba(206, 0, 0, 0.7);
-$green: rgba(0, 160, 27, .7);
-$yellow: rgba(220, 200  , 0, .9);
-$violet: rgba(255, 31, 255, .7);
-
-
+$gray: #808080;
+$blue: #1a68bd;
+$red: #be3827;
+$green: #488b3a;
+$yellow: #979828;
+$violet: #744087;
 %wvStudyIsland {
-    margin: 1rem 1rem 1rem 1rem;
-    border: 0.3rem solid $gray;
+    margin: 0.5rem;
+    border: 1px solid gray;
 }
-
 %wvStudyIsland__header {
     background-color: $gray;
-    padding: 0.5rem 0.5rem 0.8rem 0.5rem;
-    line-height: 1.35rem;
+    padding: 0.2rem;
+    line-height: 1.6rem;
+    overflow: hidden;
     width: 100%;
 }
 .wvStudyIsland__actions {
     float: right;
-
-    // Compensate header padding (since the inner download study button
-    // actually has margin).
-    margin-top: -0.8rem;
-    margin-right: -0.8rem;
+    margin-top: -1rem;
+    margin-right: -0.2rem;
+    margin-bottom: -1rem;
 }
-
 .wvStudyIsland__actions--oneCol {
     float: none;
     text-align: center;
 }
-
 .wvStudyIsland__main {
-    padding: 0.4rem; // 0.7rem - 0.3rem (2px transparent border + 1px margin)
+    padding: 0.1rem;
     color: hsl(0, 0%, 100%);
-    width: 100%; // let some space for the 4-columns based items
+    width: 100%;
 }
-
-
-// Color modifiers
 .wvStudyIsland--blue {
     @extend %wvStudyIsland;
     border-color: $blue;
 }
-
 .wvStudyIsland__header--blue {
     @extend %wvStudyIsland__header;
-    background-color: $blue;
+    background-color: #213b57;
 }
-
 .wvStudyIsland--red {
     @extend %wvStudyIsland;
     border-color: $red;
 }
-
 .wvStudyIsland__header--red {
     @extend %wvStudyIsland__header;
-    background-color: $red;
+    background-color: #441f1a;
 }
-
 .wvStudyIsland--green {
     @extend %wvStudyIsland;
     border-color: $green;
 }
-
 .wvStudyIsland__header--green {
     @extend %wvStudyIsland__header;
-    background-color: $green;
+    background-color: #38540d;
 }
-
 .wvStudyIsland--yellow {
     @extend %wvStudyIsland;
     border-color: $yellow;
 }
-
 .wvStudyIsland__header--yellow {
     @extend %wvStudyIsland__header;
-    background-color: $yellow;
+    background-color: #5c5c23;
 }
-
 .wvStudyIsland--violet {
     @extend %wvStudyIsland;
     border-color: $violet;
 }
-
 .wvStudyIsland__header--violet {
     @extend %wvStudyIsland__header;
-    background-color: $violet;
+    background-color: #432150;
 }

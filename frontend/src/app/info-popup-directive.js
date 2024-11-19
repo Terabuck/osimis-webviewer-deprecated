@@ -48,7 +48,7 @@
         this.close = function() {
             var expiration = new Date();
             expiration.setTime(expiration.getTime() + 10 * 365 * 24 * 3600 * 1000); // 10 years from now
-            $cookies.put('showInfoPopupAtStartupUserPref', _this.showInfoPopupAtStartupUserPref, {'expires': expiration, 'samesite': 'lax'});
+            $cookies.put('showInfoPopupAtStartupUserPref', _this.showInfoPopupAtStartupUserPref, {'expires': expiration});
             _this.show = false;
         };
 

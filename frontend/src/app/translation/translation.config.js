@@ -19,11 +19,14 @@
         var wvConfig = wvConfigProvider._config;
         var languages = {
             en: 'english',
-            es: 'spanish',
             fr: 'français',
             nl: 'nederlands',
-            pt: 'Português',
-            zh: 'Chinese'
+            pt: 'português',
+            es: 'español',
+            jp: 'japanese',
+            gr: 'german',
+            it: 'italian',
+            zh: 'chinese'
         };
         // languages Key array, automatically populated set with languages object
         var keysArray = [];

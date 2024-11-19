@@ -86,7 +86,7 @@
                             wvStudyManager
                                 .get(studyId)
                                 .then(function(study) {
-                                    v.label  = escape(study.tags.StudyDescription) || 'Untitled study';
+                                    v.label  = study.tags.StudyDescription || 'Untitled study';
                                     if (study.tags.StudyDate) {
                                         v.label += ' [' + study.tags.StudyDate + ']';
                                     }

@@ -23,10 +23,10 @@
 
         // Set initial UI values
         // 1. Disable toolbar & top side on mobile
-        this.enableToolbar = false;
         this.enableLayoutTop = false;
         this.enableLayoutTopLeft = false;
         this.enableLayoutTopRight = false;
+        this.enableToolbar = false;
         // 2. Disable left/right side on portrait orientation
         this.enableLayoutLeft = (orientation === 'landscape');
         this.enableLayoutLeftBottom = (orientation === 'landscape');
