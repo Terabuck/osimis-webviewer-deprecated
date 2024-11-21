@@ -25,7 +25,7 @@ var OsiSlave = require('./slave.js');
  * The available-port gathering process could have been done within this library instead to avoid to provide a default port range.
  * I made the choice not to do this to avoid race conditions between the different gathering.
  */
-var _ports = process.env.OSISYNC_PORTS ? process.env.OSISYNC_PORTS.split(',') : [5555, 5556, 5557, 5558, 5559, 5560, 5561, 5562, 5563, 5564, 5565];
+var _ports = process.env.OSISYNC_PORTS ? process.env.OSISYNC_PORTS.split(',') : [5556, 5557, 5558, 5559, 5560, 5561, 5562, 5563, 5564, 5565];
 var _nextPortIndex = 0;
 
 module.exports = {
