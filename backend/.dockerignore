@@ -1,9 +1,0 @@
-BenchmarksSources/
-Dockerfile
-Dockerfile.lsb.builder
-Build/
-build/
-ThirdPartyDownloads/
-CMakeLists.txt.user
-env/
-.idea

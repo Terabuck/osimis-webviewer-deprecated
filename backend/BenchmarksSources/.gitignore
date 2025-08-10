@@ -1,6 +1,0 @@
-env/
-src/
-orthancDb2/
-WebViewerCache/
-Orthanc_*/
-*.pyc
