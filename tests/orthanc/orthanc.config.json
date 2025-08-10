@@ -1,7 +1,0 @@
-{
-	"Name": "Demo Orthanc",
-	"RemoteAccessAllowed": true,
-	"StorageDirectory": "/orthancStorage",
-	"IndexDirectory": "/orthancStorage",
-	"Plugins": ["/usr/share/orthanc/plugins"]
-}
