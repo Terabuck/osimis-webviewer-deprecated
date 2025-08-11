@@ -236,6 +236,10 @@
             vm.referenceLines = wvReferenceLines;
             vm.wvWindowingViewportTool = wvWindowingViewportTool;
 
+            // initialize UpdatingWWWL flag 
+            vm.isUpdatingWWWL = false;
+
+
             // Configure attributes default values
             vm.toolbarEnabled = typeof vm.toolbarEnabled !== 'undefined' ? vm.toolbarEnabled : true;
             vm.toolbarPosition = typeof vm.toolbarPosition !== 'undefined' ? vm.toolbarPosition : 'top';
@@ -608,6 +612,85 @@
                 // Retrieve selected pane (or leave the function if none).
                 var selectedPane = wvPaneManager.getSelectedPane();
                 vm.wvWindowingViewportTool.applyWindowingToPane(selectedPane, windowWidth, windowCenter, false);
+            };
+
+            // UpdatingWWWL
+            vm.updateWWWLTags = function() {
+                console.log('[WW/WL] Update triggered');
+                vm.isUpdatingWWWL = true;
+                var pending = 0;
+            
+                vm.panes.forEach(function(pane, idx) {
+                    console.log(`[WW/WL] Checking pane ${idx}`, pane);
+                    if (pane && pane.seriesId && pane.csViewport && pane.csViewport.getCurrentImage()) {
+                        pending++;
+                        var image = pane.csViewport.getCurrentImage();
+                        var instanceId = image.instanceId;
+                        var ww = image.windowWidth;
+                        var wl = image.windowCenter;
+            
+                        console.log(`[WW/WL] Pane ${idx} - Instance ID: ${instanceId}, WW: ${ww}, WL: ${wl}`);
+            
+                        $.ajax({
+                            url: '/orthanc/instances/' + instanceId + '/modify',
+                            type: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify({
+                                Replace: {
+                                    WindowWidth: ww,
+                                    WindowCenter: wl
+                                }
+                            }),
+                            xhrFields: { responseType: 'blob' },
+                            success: function(modifiedBlob) {
+                                console.log(`[WW/WL] Modification success for ${instanceId}, uploading new instance...`);
+                                var formData = new FormData();
+                                formData.append('file', modifiedBlob, 'modified_' + instanceId + '.dcm');
+            
+                                $.ajax({
+                                    url: '/orthanc/instances',
+                                    type: 'POST',
+                                    data: formData,
+                                    processData: false,
+                                    contentType: false,
+                                    success: function(response) {
+                                        console.log(`[WW/WL] Upload success for ${instanceId}`, response);
+                                        pending--;
+                                        if (pending === 0) {
+                                            vm.isUpdatingWWWL = false;
+                                            console.log('[WW/WL] All updates complete');
+                                            if (!scope.$$phase) scope.$apply();
+                                        }
+                                    },
+                                    error: function(err) {
+                                        console.error(`[WW/WL] Upload failed for ${instanceId}`, err);
+                                        pending--;
+                                        if (pending === 0) {
+                                            vm.isUpdatingWWWL = false;
+                                            if (!scope.$$phase) scope.$apply();
+                                        }
+                                    }
+                                });
+                            },
+                            error: function(err) {
+                                console.error(`[WW/WL] Modification failed for ${instanceId}`, err);
+                                pending--;
+                                if (pending === 0) {
+                                    vm.isUpdatingWWWL = false;
+                                    if (!scope.$$phase) scope.$apply();
+                                }
+                            }
+                        });
+                    } else {
+                        console.warn(`[WW/WL] Pane ${idx} skipped: missing data`);
+                    }
+                });
+            
+                if (pending === 0) {
+                    console.warn('[WW/WL] No valid panes found to update');
+                    vm.isUpdatingWWWL = false;
+                    if (!scope.$$phase) scope.$apply();
+                }
             };
 
             // Store each panes' states.
